@@ -1,26 +1,37 @@
-"use client"
+"use client";
 
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { LoginForm } from "./LoginForm"
-import { SignupForm } from "./SignupForm"
-import { useState } from "react"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { LoginForm } from "./LoginForm";
+import { SignupForm } from "./SignupForm";
+import { useState } from "react";
 
 interface AuthModalProps {
-  isOpen: boolean
-  onClose: () => void
-  defaultTab?: "login" | "signup"
+  isOpen: boolean;
+  onClose: () => void;
+  defaultTab?: "login" | "signup";
 }
 
-export function AuthModal({ isOpen, onClose, defaultTab = "login" }: AuthModalProps) {
-  const [activeTab, setActiveTab] = useState(defaultTab)
+export function AuthModal({
+  isOpen,
+  onClose,
+  defaultTab = "login",
+}: AuthModalProps) {
+  const [activeTab, setActiveTab] = useState(defaultTab);
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md bg-white/95 backdrop-blur-sm border-0 shadow-2xl">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-center bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-            {activeTab === "login" ? "¡Bienvenido de Vuelta!" : "¡Únete a la Fiesta!"}
+            {activeTab === "login"
+              ? "¡Bienvenido de Vuelta!"
+              : "¡Únete a la Fiesta!"}
           </DialogTitle>
         </DialogHeader>
 
@@ -56,5 +67,5 @@ export function AuthModal({ isOpen, onClose, defaultTab = "login" }: AuthModalPr
         </div>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

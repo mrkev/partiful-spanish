@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Mail, Lock, User, Sparkles } from "lucide-react"
-import { useState } from "react"
-import { useAuth } from "@/hooks/UseAuth"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Mail, Lock, User, Sparkles } from "lucide-react";
+import { useState } from "react";
+import { useAuth } from "@/hooks/UseAuth";
 
 export function SignupForm() {
   const [formData, setFormData] = useState({
@@ -15,40 +15,40 @@ export function SignupForm() {
     email: "",
     password: "",
     confirmPassword: "",
-  })
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState("")
-  const { signUp } = useAuth()
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const { signUp } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
-    setError("")
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
 
     if (formData.password !== formData.confirmPassword) {
-      setError("Las contraseñas no coinciden")
-      setIsLoading(false)
-      return
+      setError("Las contraseñas no coinciden");
+      setIsLoading(false);
+      return;
     }
 
     if (formData.password.length < 6) {
-      setError("La contraseña debe tener al menos 6 caracteres")
-      setIsLoading(false)
-      return
+      setError("La contraseña debe tener al menos 6 caracteres");
+      setIsLoading(false);
+      return;
     }
 
     try {
-      await signUp(formData.email, formData.password, formData.name)
+      await signUp(formData.email, formData.password, formData.name);
     } catch (err: any) {
-      setError(err.message || "Error al crear la cuenta")
+      setError(err.message || "Error al crear la cuenta");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   const updateFormData = (field: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }))
-  }
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -59,7 +59,10 @@ export function SignupForm() {
       )}
 
       <div className="space-y-2">
-        <Label htmlFor="name" className="text-lg font-semibold text-gray-700 flex items-center">
+        <Label
+          htmlFor="name"
+          className="text-lg font-semibold text-gray-700 flex items-center"
+        >
           <User className="w-5 h-5 mr-2 text-cyan-500" />
           Nombre
         </Label>
@@ -75,7 +78,10 @@ export function SignupForm() {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="signup-email" className="text-lg font-semibold text-gray-700 flex items-center">
+        <Label
+          htmlFor="signup-email"
+          className="text-lg font-semibold text-gray-700 flex items-center"
+        >
           <Mail className="w-5 h-5 mr-2 text-pink-500" />
           Email
         </Label>
@@ -91,7 +97,10 @@ export function SignupForm() {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="signup-password" className="text-lg font-semibold text-gray-700 flex items-center">
+        <Label
+          htmlFor="signup-password"
+          className="text-lg font-semibold text-gray-700 flex items-center"
+        >
           <Lock className="w-5 h-5 mr-2 text-purple-500" />
           Contraseña
         </Label>
@@ -107,7 +116,10 @@ export function SignupForm() {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="confirm-password" className="text-lg font-semibold text-gray-700 flex items-center">
+        <Label
+          htmlFor="confirm-password"
+          className="text-lg font-semibold text-gray-700 flex items-center"
+        >
           <Lock className="w-5 h-5 mr-2 text-purple-500" />
           Confirmar Contraseña
         </Label>
@@ -151,5 +163,5 @@ export function SignupForm() {
         </a>
       </div>
     </form>
-  )
+  );
 }

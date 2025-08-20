@@ -1,13 +1,14 @@
-import { DashboardHeader } from "@/components/Dashboard/DashboardHeader"
-import { EventSection } from "@/components/Dashboard/EventSection"
-import { EmptyState } from "@/components/Dashboard/EmptyState"
+import { DashboardHeader } from "@/components/Dashboard/DashboardHeader";
+import { EventSection } from "@/components/Dashboard/EventSection";
+import { EmptyState } from "@/components/Dashboard/EmptyState";
 
 // Mock user events data
 const mockUserEvents = [
   {
     id: "retro-90s-party",
     title: "Fiesta Retro 90s - ¡Volvamos al Pasado!",
-    description: "Una noche llena de música de los 90s, karaoke, juegos retro y mucha nostalgia.",
+    description:
+      "Una noche llena de música de los 90s, karaoke, juegos retro y mucha nostalgia.",
     date: "2024-02-15",
     time: "20:00",
     location: "Casa de María - Calle Retro 123, CDMX",
@@ -31,7 +32,8 @@ const mockUserEvents = [
   {
     id: "karaoke-night",
     title: "Noche de Karaoke Épica",
-    description: "Ven a cantar tus canciones favoritas y pasar una noche increíble",
+    description:
+      "Ven a cantar tus canciones favoritas y pasar una noche increíble",
     date: "2024-01-20",
     time: "21:00",
     location: "Karaoke Bar Downtown",
@@ -43,7 +45,8 @@ const mockUserEvents = [
   {
     id: "pool-party",
     title: "Pool Party de Verano ☀️",
-    description: "Fiesta en la alberca con música, comida y diversión sin límites",
+    description:
+      "Fiesta en la alberca con música, comida y diversión sin límites",
     date: "2024-03-15",
     time: "15:00",
     location: "Casa de Carlos - Zona Residencial",
@@ -52,11 +55,13 @@ const mockUserEvents = [
     rsvpCount: 28,
     status: "upcoming",
   },
-]
+];
 
 export default function InicioPage() {
-  const upcomingEvents = mockUserEvents.filter((event) => event.status === "upcoming")
-  const pastEvents = mockUserEvents.filter((event) => event.status === "past")
+  const upcomingEvents = mockUserEvents.filter(
+    (event) => event.status === "upcoming",
+  );
+  const pastEvents = mockUserEvents.filter((event) => event.status === "past");
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-cyan-100">
@@ -70,21 +75,33 @@ export default function InicioPage() {
               Mis Eventos
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Gestiona todos tus eventos desde un solo lugar. Edita, comparte y haz que cada celebración sea épica.
+              Gestiona todos tus eventos desde un solo lugar. Edita, comparte y
+              haz que cada celebración sea épica.
             </p>
           </div>
 
           {/* Events Sections */}
           {upcomingEvents.length > 0 && (
-            <EventSection title="Próximos Eventos" events={upcomingEvents} badgeColor="green" className="mb-16" />
+            <EventSection
+              title="Próximos Eventos"
+              events={upcomingEvents}
+              badgeColor="green"
+              className="mb-16"
+            />
           )}
 
-          {pastEvents.length > 0 && <EventSection title="Eventos Pasados" events={pastEvents} badgeColor="gray" />}
+          {pastEvents.length > 0 && (
+            <EventSection
+              title="Eventos Pasados"
+              events={pastEvents}
+              badgeColor="gray"
+            />
+          )}
 
           {/* Empty State */}
           {mockUserEvents.length === 0 && <EmptyState />}
         </div>
       </div>
     </div>
-  )
+  );
 }

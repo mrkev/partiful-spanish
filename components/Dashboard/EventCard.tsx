@@ -1,38 +1,38 @@
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Calendar, MapPin, Users, Edit, Eye, Lock } from "lucide-react"
-import Link from "next/link"
-import Image from "next/image"
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Calendar, MapPin, Users, Edit, Eye, Lock } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
 
 interface Event {
-  id: string
-  title: string
-  description: string
-  date: string
-  time: string
-  location: string
-  coverImage: string
-  isPrivate: boolean
-  rsvpCount: number
-  status: string
+  id: string;
+  title: string;
+  description: string;
+  date: string;
+  time: string;
+  location: string;
+  coverImage: string;
+  isPrivate: boolean;
+  rsvpCount: number;
+  status: string;
 }
 
 interface EventCardProps {
-  event: Event
+  event: Event;
 }
 
 export function EventCard({ event }: EventCardProps) {
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString)
+    const date = new Date(dateString);
     return date.toLocaleDateString("es-ES", {
       weekday: "short",
       month: "short",
       day: "numeric",
-    })
-  }
+    });
+  };
 
-  const isUpcoming = event.status === "upcoming"
+  const isUpcoming = event.status === "upcoming";
 
   return (
     <Card className="overflow-hidden border-0 shadow-xl bg-white/90 backdrop-blur-sm hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
@@ -67,7 +67,9 @@ export function EventCard({ event }: EventCardProps) {
 
         {/* Title Overlay */}
         <div className="absolute bottom-3 left-3 right-3">
-          <h3 className="text-white font-bold text-lg leading-tight line-clamp-2">{event.title}</h3>
+          <h3 className="text-white font-bold text-lg leading-tight line-clamp-2">
+            {event.title}
+          </h3>
         </div>
       </div>
 
@@ -93,7 +95,9 @@ export function EventCard({ event }: EventCardProps) {
         </div>
 
         {/* Description */}
-        <p className="text-gray-700 text-sm mb-6 line-clamp-2 leading-relaxed">{event.description}</p>
+        <p className="text-gray-700 text-sm mb-6 line-clamp-2 leading-relaxed">
+          {event.description}
+        </p>
 
         {/* Action Buttons */}
         <div className="flex gap-2">
@@ -120,5 +124,5 @@ export function EventCard({ event }: EventCardProps) {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

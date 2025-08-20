@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Plus, Calendar, Sparkles } from "lucide-react"
-import Link from "next/link"
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Plus, Calendar, Sparkles } from "lucide-react";
+import Link from "next/link";
 
 export function EmptyState() {
   return (
@@ -20,7 +20,8 @@ export function EmptyState() {
 
           {/* Description */}
           <p className="text-gray-600 mb-8 leading-relaxed">
-            Aún no has creado ningún evento. ¡Es hora de organizar una celebración épica que todos recordarán!
+            Aún no has creado ningún evento. ¡Es hora de organizar una
+            celebración épica que todos recordarán!
           </p>
 
           {/* CTA Button */}
@@ -50,5 +51,5 @@ export function EmptyState() {
         <Sparkles className="absolute -top-12 left-1/2 w-5 h-5 text-cyan-400 animate-pulse delay-500" />
       </div>
     </div>
-  )
+  );
 }

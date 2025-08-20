@@ -1,18 +1,18 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Save, X } from "lucide-react"
-import Link from "next/link"
-import { useState } from "react"
-import { FormField } from "./FormField"
-import { ImageUpload } from "./ImageUpload"
-import { PrivateEventCheckbox } from "./PrivateEventCheckbox"
-import type { EventData } from "@/app/editar/[eventId]/page"
+import type React from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Save, X } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
+import { FormField } from "./FormField";
+import { ImageUpload } from "./ImageUpload";
+import { PrivateEventCheckbox } from "./PrivateEventCheckbox";
+import type { EventData } from "@/app/editar/[eventId]/page";
 
 interface EditEventFormProps {
-  eventData: EventData
+  eventData: EventData;
 }
 
 export function EditEventForm({ eventData }: EditEventFormProps) {
@@ -23,24 +23,26 @@ export function EditEventForm({ eventData }: EditEventFormProps) {
     location: eventData.location,
     coverImage: null as File | null,
     isPrivate: eventData.isPrivate,
-  })
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log("Updated event data:", formData)
+    e.preventDefault();
+    console.log("Updated event data:", formData);
     // Here you would typically send the updated data to your backend
-    alert("¡Evento actualizado exitosamente! 🎉")
-  }
+    alert("¡Evento actualizado exitosamente! 🎉");
+  };
 
   const updateFormData = (field: string, value: any) => {
-    setFormData((prev) => ({ ...prev, [field]: value }))
-  }
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
 
   return (
     <>
       <Card className="shadow-2xl border-0 bg-white/90 backdrop-blur-sm">
         <CardHeader className="bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-t-lg">
-          <CardTitle className="text-2xl font-bold text-center">Detalles del Evento</CardTitle>
+          <CardTitle className="text-2xl font-bold text-center">
+            Detalles del Evento
+          </CardTitle>
         </CardHeader>
         <CardContent className="p-8">
           <form onSubmit={handleSubmit} className="space-y-8">
@@ -126,11 +128,14 @@ export function EditEventForm({ eventData }: EditEventFormProps) {
       {/* Additional Actions */}
       <div className="text-center mt-8">
         <Link href={`/e/${eventData.id}`}>
-          <Button variant="outline" className="border-purple-300 text-purple-700 hover:bg-purple-50 bg-transparent">
+          <Button
+            variant="outline"
+            className="border-purple-300 text-purple-700 hover:bg-purple-50 bg-transparent"
+          >
             Ver Página del Evento
           </Button>
         </Link>
       </div>
     </>
-  )
+  );
 }

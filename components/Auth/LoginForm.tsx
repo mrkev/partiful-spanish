@@ -1,34 +1,34 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Mail, Lock, Sparkles } from "lucide-react"
-import { useState } from "react"
-import { useAuth } from "@/hooks/UseAuth"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Mail, Lock, Sparkles } from "lucide-react";
+import { useState } from "react";
+import { useAuth } from "@/hooks/UseAuth";
 
 export function LoginForm() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState("")
-  const { signIn } = useAuth()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const { signIn } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
-    setError("")
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
 
     try {
-      await signIn(email, password)
+      await signIn(email, password);
     } catch (err: any) {
-      setError(err.message || "Error al iniciar sesión")
+      setError(err.message || "Error al iniciar sesión");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -39,7 +39,10 @@ export function LoginForm() {
       )}
 
       <div className="space-y-2">
-        <Label htmlFor="email" className="text-lg font-semibold text-gray-700 flex items-center">
+        <Label
+          htmlFor="email"
+          className="text-lg font-semibold text-gray-700 flex items-center"
+        >
           <Mail className="w-5 h-5 mr-2 text-pink-500" />
           Email
         </Label>
@@ -55,7 +58,10 @@ export function LoginForm() {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="password" className="text-lg font-semibold text-gray-700 flex items-center">
+        <Label
+          htmlFor="password"
+          className="text-lg font-semibold text-gray-700 flex items-center"
+        >
           <Lock className="w-5 h-5 mr-2 text-purple-500" />
           Contraseña
         </Label>
@@ -89,10 +95,13 @@ export function LoginForm() {
       </Button>
 
       <div className="text-center">
-        <Button variant="ghost" className="text-purple-700 hover:text-purple-900 hover:bg-purple-50">
+        <Button
+          variant="ghost"
+          className="text-purple-700 hover:text-purple-900 hover:bg-purple-50"
+        >
           ¿Olvidaste tu contraseña?
         </Button>
       </div>
     </form>
-  )
+  );
 }
