@@ -32,3 +32,15 @@ export async function getEvent(id: string) {
     include: { rsvps: true, creator: true },
   });
 }
+
+export async function updateEvent(id: string, data: NewEventData) {
+  return await prisma.event.update({
+    where: { id },
+    data: {
+      title: emptythrows(data.title),
+      description: nonempty(data.description),
+      start: data.start,
+      location: nonempty(data.location),
+    },
+  });
+}

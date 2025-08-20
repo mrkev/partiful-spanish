@@ -1,35 +1,45 @@
 "use client";
 
-import type React from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { updateEvent } from "@/app/actions/event";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Prisma } from "@/lib/generated/prisma";
+import { datestrForDatetimeInput } from "@/lib/utils/date";
 import { Save, X } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import type React from "react";
 import { useState } from "react";
 import { FormField } from "./FormField";
 import { ImageUpload } from "./ImageUpload";
-import { PrivateEventCheckbox } from "./PrivateEventCheckbox";
-import type { EventData } from "@/app/editar/[eventId]/page";
 
-interface EditEventFormProps {
-  eventData: EventData;
-}
-
-export function EditEventForm({ eventData }: EditEventFormProps) {
+export function EditEventForm({
+  event,
+}: {
+  event: Prisma.EventGetPayload<{ include: { rsvps: true } }>;
+}) {
+  const router = useRouter();
   const [formData, setFormData] = useState({
-    title: eventData.title,
-    description: eventData.description,
-    datetime: `${eventData.date}T${eventData.time}`,
-    location: eventData.location,
+    title: event.title,
+    description: event.description,
+    datetime: datestrForDatetimeInput(event.start),
+    location: event.location,
     coverImage: null as File | null,
-    isPrivate: eventData.isPrivate,
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    await updateEvent(event.id, {
+      title: formData.title,
+      description: formData.description ?? "",
+      start: new Date(formData.datetime),
+      location: formData.location ?? "",
+      coverImage: null,
+    });
     console.log("Updated event data:", formData);
     // Here you would typically send the updated data to your backend
     alert("¡Evento actualizado exitosamente! 🎉");
+    router.push(`/e/${event.id}`);
   };
 
   const updateFormData = (field: string, value: any) => {
@@ -38,12 +48,18 @@ export function EditEventForm({ eventData }: EditEventFormProps) {
 
   return (
     <>
+      <div className="text-center mb-8">
+        <Link href={`/e/${event.id}`} target="_blank">
+          <Button
+            variant="outline"
+            className="border-purple-300 text-purple-700 hover:bg-purple-50 bg-transparent"
+          >
+            Ver Página del Evento
+          </Button>
+        </Link>
+      </div>
+
       <Card className="shadow-2xl border-0 bg-white/90 backdrop-blur-sm">
-        <CardHeader className="bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-t-lg">
-          <CardTitle className="text-2xl font-bold text-center">
-            Detalles del Evento
-          </CardTitle>
-        </CardHeader>
         <CardContent className="p-8">
           <form onSubmit={handleSubmit} className="space-y-8">
             <FormField
@@ -89,14 +105,9 @@ export function EditEventForm({ eventData }: EditEventFormProps) {
             />
 
             <ImageUpload
-              currentImage={eventData.coverImage}
+              currentImage={event.image}
               selectedFile={formData.coverImage}
               onFileSelect={(file) => updateFormData("coverImage", file)}
-            />
-
-            <PrivateEventCheckbox
-              checked={formData.isPrivate}
-              onChange={(checked) => updateFormData("isPrivate", checked)}
             />
 
             {/* Action Buttons */}
@@ -109,7 +120,7 @@ export function EditEventForm({ eventData }: EditEventFormProps) {
                 <Save className="w-6 h-6 mr-3" />
                 Guardar Cambios
               </Button>
-              <Link href="/inicio" className="flex-1">
+              <Link href={`/e/${event.id}`} className="flex-1">
                 <Button
                   type="button"
                   variant="outline"
@@ -124,18 +135,6 @@ export function EditEventForm({ eventData }: EditEventFormProps) {
           </form>
         </CardContent>
       </Card>
-
-      {/* Additional Actions */}
-      <div className="text-center mt-8">
-        <Link href={`/e/${eventData.id}`}>
-          <Button
-            variant="outline"
-            className="border-purple-300 text-purple-700 hover:bg-purple-50 bg-transparent"
-          >
-            Ver Página del Evento
-          </Button>
-        </Link>
-      </div>
     </>
   );
 }
