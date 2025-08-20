@@ -6,6 +6,7 @@ export async function testAction() {
   return await prisma.user.create({
     data: {
       email: "mr.kev@me.com",
+      // todo: ensure name is not empty string
     },
   });
 }

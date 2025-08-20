@@ -3,37 +3,43 @@
 import type React from "react";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   ArrowLeft,
-  Upload,
   Calendar,
+  ImageIcon,
   MapPin,
   Sparkles,
-  ImageIcon,
+  Upload,
 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { createEvent, NewEventData } from "../actions/event";
+import { datestrForDatetimeInput } from "@/lib/utils/date";
 
 export default function CreateEventPage() {
-  const [formData, setFormData] = useState({
+  const router = useRouter();
+  const [formData, setFormData] = useState<NewEventData>({
     title: "",
     description: "",
-    datetime: "",
+    start: new Date(),
     location: "",
     coverImage: null as File | null,
-    isPrivate: false,
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const event = await createEvent(formData);
+    alert("¡Evento creado exitosamente! 🎉");
+
+    router.push(`/e/${event.id}`);
     console.log("Event data:", formData);
     // Here you would typically send the data to your backend
-    alert("¡Evento creado exitosamente! 🎉");
   };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,24 +75,9 @@ export default function CreateEventPage() {
       {/* Main Content */}
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-2xl mx-auto">
-          {/* Page Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-              Crear Nuevo Evento
-            </h1>
-            <p className="text-xl text-gray-600">
-              Llena los detalles y prepárate para una fiesta épica 🎉
-            </p>
-          </div>
-
           {/* Form Card */}
           <Card className="shadow-2xl border-0 bg-white/90 backdrop-blur-sm">
-            <CardHeader className="bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-t-lg">
-              <CardTitle className="text-2xl font-bold text-center">
-                Detalles del Evento
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-8">
+            <CardContent>
               <form onSubmit={handleSubmit} className="space-y-8">
                 {/* Event Title */}
                 <div className="space-y-2">
@@ -148,13 +139,14 @@ export default function CreateEventPage() {
                   <Input
                     id="datetime"
                     type="datetime-local"
-                    value={formData.datetime}
-                    onChange={(e) =>
+                    value={datestrForDatetimeInput(formData.start)}
+                    onChange={(e) => {
+                      console.log("change to ", new Date(e.target.value));
                       setFormData((prev) => ({
                         ...prev,
-                        datetime: e.target.value,
-                      }))
-                    }
+                        start: new Date(e.target.value),
+                      }));
+                    }}
                     className="text-lg p-4 border-2 border-purple-200 focus:border-purple-500 rounded-xl"
                     required
                   />
@@ -214,27 +206,6 @@ export default function CreateEventPage() {
                       </p>
                     </Label>
                   </div>
-                </div>
-
-                {/* Private Event Checkbox */}
-                <div className="flex items-center space-x-3 p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl">
-                  <Checkbox
-                    id="isPrivate"
-                    checked={formData.isPrivate}
-                    onCheckedChange={(checked) =>
-                      setFormData((prev) => ({
-                        ...prev,
-                        isPrivate: checked as boolean,
-                      }))
-                    }
-                    className="w-5 h-5"
-                  />
-                  <Label
-                    htmlFor="isPrivate"
-                    className="text-lg font-medium text-gray-700 cursor-pointer"
-                  >
-                    Evento Privado (solo invitados pueden ver los detalles)
-                  </Label>
                 </div>
 
                 {/* Submit Button */}
