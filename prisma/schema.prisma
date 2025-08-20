@@ -3,20 +3,10 @@ generator client {
   output   = "../lib/generated/prisma"
 }
 
-model supabase_user {
-  id    String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  email String? @unique
-
-  // ... other fields from auth.users you want to access
-  @@map("users") // Maps the model to the 'users' table in the 'auth' schema
-  @@schema("auth") // Specifies the schema
-}
-
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
-  schemas   = ["auth", "public"] // Include both schemas
 }
 
 model User {
@@ -29,10 +19,10 @@ model User {
   image String?
   bio   String?
 
+  supabase_userId String @unique
+
   events Event[] @relation("CreatorEvents") // todo?
   rsvps  RSVP[]
-
-  @@schema("public")
 }
 
 model Event {
@@ -52,8 +42,6 @@ model Event {
   creator   User    @relation("CreatorEvents", fields: [creatorId], references: [id]) // todo
 
   rsvps RSVP[]
-
-  @@schema("public")
 }
 
 model RSVP {
@@ -69,13 +57,10 @@ model RSVP {
   event Event @relation(fields: [eventId], references: [id])
 
   @@unique([userId, eventId])
-  @@schema("public")
 }
 
 enum RSVPStatus {
   YES
   NO
   MAYBE
-
-  @@schema("public")
 }
