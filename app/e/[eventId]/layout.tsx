@@ -1,0 +1,118 @@
+import { genLogin } from "@/app/actions/auth";
+import { ownsEvent } from "@/app/actions/event";
+import { Button } from "@/components/ui/button";
+import { User } from "@/lib/generated/prisma";
+import { Pencil, Share2 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+
+export default async function Layout({
+  children,
+  params: paramsPromise,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ eventId: string }>;
+}) {
+  const { profile } = await genLogin();
+
+  if (profile == null) {
+    return (
+      <>
+        <UnauthedPill />
+        {children}
+      </>
+    );
+  }
+
+  const params = await paramsPromise;
+  if (await ownsEvent(profile.id, params.eventId)) {
+    return (
+      <>
+        <OwnerPill profile={profile} eventId={params.eventId} isOwner />
+        {children}
+      </>
+    );
+  } else {
+    return (
+      <>
+        <OwnerPill profile={profile} eventId={params.eventId} isOwner={false} />
+        {children}
+      </>
+    );
+  }
+}
+
+function OwnerPill({
+  profile,
+  eventId,
+  isOwner,
+}: {
+  profile: User;
+  eventId: string;
+  isOwner: boolean;
+}) {
+  const initial = profile.name?.charAt(0).toUpperCase() ?? "?";
+
+  return (
+    <div className="fixed top-4 right-4 z-50">
+      <div className="flex items-center gap-3 bg-white/50 backdrop-blur-sm shadow-lg rounded-full px-3 py-2 border border-gray-200">
+        {/* Action buttons */}
+        <div className="flex items-center gap-2 border-r border-gray-100 pr-3">
+          {isOwner && (
+            <Link href={`/edit/${eventId}`}>
+              <Button
+                type="button"
+                variant="outline"
+                className="p-2 rounded-full hover:bg-gray-100 transition cursor-pointer"
+              >
+                <Pencil className="w-5 h-5 text-gray-600" />
+              </Button>
+            </Link>
+          )}
+          <Button
+            type="button"
+            variant="outline"
+            className="p-2 rounded-full hover:bg-gray-100 transition"
+            disabled
+          >
+            <Share2 className="w-5 h-5 text-gray-600" />
+          </Button>
+        </div>
+        {/* Profile link */}
+        <Link href="/inicio" className="flex items-center space-x-2">
+          {profile.image ? (
+            <Image
+              src={profile.image}
+              alt={profile.name ?? "profile picture"}
+              width={40}
+              height={40}
+              className="rounded-full object-cover"
+            />
+          ) : (
+            <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 text-gray-700 font-semibold">
+              {initial}
+            </div>
+          )}
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+function UnauthedPill() {
+  return (
+    <div className="fixed top-4 right-4 z-50">
+      <div className="flex items-center">
+        <Link className="cursor-pointer" href={"/"}>
+          <Button
+            variant={"outline"}
+            type="button"
+            className="text-sm font-medium text-gray-800 hover:text-gray-900 hover:bg-gray-100 rounded-full px-3 py-1 transition"
+          >
+            Crea una invitación
+          </Button>
+        </Link>
+      </div>
+    </div>
+  );
+}

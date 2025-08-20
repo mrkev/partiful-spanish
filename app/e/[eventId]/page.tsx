@@ -8,6 +8,5 @@ export default async function Page({
 }) {
   const params = await paramsPromise;
   const event = await getEvent(params.eventId);
-
   return <EventPage event={event} />;
 }

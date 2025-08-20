@@ -55,3 +55,11 @@ export async function getAuthUserEvents() {
     profile,
   };
 }
+
+export async function ownsEvent(profileId: string, eventId: string) {
+  const result = await prisma.event.count({
+    where: { creatorId: profileId, id: eventId },
+  });
+
+  return result > 0;
+}

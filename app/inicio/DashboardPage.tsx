@@ -1,65 +1,10 @@
 "use client";
 
 import { DashboardHeader } from "@/components/Dashboard/DashboardHeader";
-import { EventSection } from "@/components/Dashboard/EventSection";
 import { EmptyState } from "@/components/Dashboard/EmptyState";
+import { EventSection } from "@/components/Dashboard/EventSection";
 import { Event, User } from "@/lib/generated/prisma";
 import Link from "next/link";
-
-// Mock user events data
-const mockUserEvents = [
-  {
-    id: "retro-90s-party",
-    title: "Fiesta Retro 90s - ¡Volvamos al Pasado!",
-    description:
-      "Una noche llena de música de los 90s, karaoke, juegos retro y mucha nostalgia.",
-    date: "2024-02-15",
-    time: "20:00",
-    location: "Casa de María - Calle Retro 123, CDMX",
-    coverImage: "/90s-party-cover.png",
-    isPrivate: false,
-    rsvpCount: 35,
-    status: "upcoming",
-  },
-  {
-    id: "cumple-ana",
-    title: "Cumpleaños de Ana 🎂",
-    description: "Celebremos los 25 años de Ana con una fiesta increíble",
-    date: "2024-02-28",
-    time: "19:30",
-    location: "Salón de Fiestas El Jardín",
-    coverImage: "/birthday-party.png",
-    isPrivate: true,
-    rsvpCount: 18,
-    status: "upcoming",
-  },
-  {
-    id: "karaoke-night",
-    title: "Noche de Karaoke Épica",
-    description:
-      "Ven a cantar tus canciones favoritas y pasar una noche increíble",
-    date: "2024-01-20",
-    time: "21:00",
-    location: "Karaoke Bar Downtown",
-    coverImage: "/karaoke-night.png",
-    isPrivate: false,
-    rsvpCount: 42,
-    status: "past",
-  },
-  {
-    id: "pool-party",
-    title: "Pool Party de Verano ☀️",
-    description:
-      "Fiesta en la alberca con música, comida y diversión sin límites",
-    date: "2024-03-15",
-    time: "15:00",
-    location: "Casa de Carlos - Zona Residencial",
-    coverImage: "/pool-party.png",
-    isPrivate: false,
-    rsvpCount: 28,
-    status: "upcoming",
-  },
-];
 
 export function DashboardPage({
   events,
@@ -131,7 +76,7 @@ export function DashboardPage({
           )}
 
           {/* Empty State */}
-          {mockUserEvents.length === 0 && <EmptyState />}
+          {events.length === 0 && <EmptyState />}
         </div>
       </div>
     </div>
