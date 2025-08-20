@@ -1,6 +1,8 @@
 export function nonempty(str: string | null | undefined) {
   if (str === "") {
     return null;
+  } else {
+    return str;
   }
 }
 

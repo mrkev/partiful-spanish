@@ -10,7 +10,7 @@ export type NewEventData = {
   description: string;
   start: Date;
   location: string;
-  coverImage: File | null;
+  coverImage: string | null;
 };
 
 export async function createEvent(data: NewEventData) {
@@ -23,6 +23,7 @@ export async function createEvent(data: NewEventData) {
       start: data.start,
       creatorId: id,
       location: nonempty(data.location),
+      image: data.coverImage,
     },
   });
 }
@@ -42,6 +43,7 @@ export async function updateEvent(id: string, data: NewEventData) {
       description: nonempty(data.description),
       start: data.start,
       location: nonempty(data.location),
+      image: nonempty(data.coverImage),
     },
   });
 }

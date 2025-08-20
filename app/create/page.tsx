@@ -2,11 +2,14 @@
 
 import type React from "react";
 
+import { ImagePickerModal } from "@/components/ImagePickerModal";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { DEFAULT_EVENT_IMAGES } from "@/lib/constants";
+import { datestrForDatetimeInput } from "@/lib/utils/date";
 import {
   ArrowLeft,
   Calendar,
@@ -19,7 +22,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createEvent, NewEventData } from "../actions/event";
-import { datestrForDatetimeInput } from "@/lib/utils/date";
 
 export default function CreateEventPage() {
   const router = useRouter();
@@ -28,8 +30,16 @@ export default function CreateEventPage() {
     description: "",
     start: new Date(),
     location: "",
-    coverImage: null as File | null,
+    coverImage: null as string | null,
   });
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+
+  const handleImageSelect = (imageUrl: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      coverImage: imageUrl,
+    }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,12 +52,12 @@ export default function CreateEventPage() {
     // Here you would typically send the data to your backend
   };
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setFormData((prev) => ({ ...prev, coverImage: file }));
-    }
-  };
+  // const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = e.target.files?.[0];
+  //   if (file) {
+  //     setFormData((prev) => ({ ...prev, coverImage: file }));
+  //   }
+  // };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-cyan-100">
@@ -178,7 +188,7 @@ export default function CreateEventPage() {
                 </div>
 
                 {/* Cover Image Upload */}
-                <div className="space-y-2">
+                {/* <div className="space-y-2">
                   <Label
                     htmlFor="coverImage"
                     className="text-lg font-semibold text-gray-700 flex items-center"
@@ -206,7 +216,31 @@ export default function CreateEventPage() {
                       </p>
                     </Label>
                   </div>
+                </div> */}
+
+                <div className="space-y-4">
+                  <Button onClick={() => setIsImageModalOpen(true)}>
+                    Seleccionar Imagen
+                  </Button>
+
+                  <div className="space-y-2">
+                    <div className="w-64 h-64 border rounded-lg overflow-hidden">
+                      <img
+                        src={formData.coverImage || "/placeholder.svg"}
+                        alt="Selected"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
                 </div>
+
+                <ImagePickerModal
+                  existingImages={DEFAULT_EVENT_IMAGES}
+                  isOpen={isImageModalOpen}
+                  onClose={() => setIsImageModalOpen(false)}
+                  onImageSelect={handleImageSelect}
+                  noCategories
+                />
 
                 {/* Submit Button */}
                 <div className="pt-6">

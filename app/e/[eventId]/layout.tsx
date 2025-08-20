@@ -59,11 +59,11 @@ function OwnerPill({
         {/* Action buttons */}
         <div className="flex items-center gap-2 border-r border-gray-100 pr-3">
           {isOwner && (
-            <Link href={`/edit/${eventId}`}>
+            <Link href={`/editar/${eventId}`}>
               <Button
                 type="button"
                 variant="outline"
-                className="p-2 rounded-full hover:bg-gray-100 transition cursor-pointer"
+                className="p-2 rounded-full hover:bg-gray-100 transition"
               >
                 <Pencil className="w-5 h-5 text-gray-600" />
               </Button>
@@ -101,15 +101,15 @@ function OwnerPill({
 
 function UnauthedPill() {
   return (
-    <div className="fixed top-4 right-4 z-50">
+    <div className="fixed bottom-4 right-4 z-50">
       <div className="flex items-center">
-        <Link className="cursor-pointer" href={"/"}>
+        <Link href={"/"}>
           <Button
             variant={"outline"}
             type="button"
             className="text-sm font-medium text-gray-800 hover:text-gray-900 hover:bg-gray-100 rounded-full px-3 py-1 transition"
           >
-            Crea una invitación
+            Crea una invitación como esta
           </Button>
         </Link>
       </div>

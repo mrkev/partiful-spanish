@@ -74,9 +74,9 @@ export function EventPage({
           <div className="grid lg:grid-cols-4 gap-8">
             {/* Event Details */}
             <div className="lg:col-span-2 space-y-6 order-2 lg:order-1">
-              <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm ">
+              <Card className="shadow-xl border-0 bg-white/70 backdrop-blur-sm ">
                 <CardContent>
-                  <h1 className="text-2xl md:text-3xl font-bold leading-tight bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                  <h1 className="text-2xl md:text-3xl font-bold leading-tight bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent mb-2">
                     {event.title}
                   </h1>
                   <p className="text-base opacity-90 mb-4 text-gray-500">
@@ -129,11 +129,9 @@ export function EventPage({
             </div>
 
             {/* Cover Image */}
-            <div className="relative mb-8 rounded-3xl overflow-hidden shadow-2xl max-w-md mx-auto lg:col-span-2 order-1 lg:order-2 self-start">
+            <div className="relative mb-8 rounded-3xl overflow-hidden shadow-2xl max-w-md mx-auto lg:col-span-2 order-1 lg:order-2 self-start w-full">
               <Image
-                src={
-                  event.image || "/90s-party-cover.png" || "/placeholder.svg"
-                }
+                src={event.image || "/placeholder.svg"}
                 alt={event.title} // todo: another alt text?
                 width={400}
                 height={400}
@@ -153,7 +151,7 @@ export function EventPage({
               </div> */}
             </div>
 
-            <Card className="shadow-xl border-0 bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 p-1 lg:col-span-2 order-3">
+            {/* <Card className="shadow-xl border-0 bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 p-1 lg:col-span-2 order-3">
               <div className="bg-white rounded-lg p-6">
                 <h4 className="text-xl font-bold mb-4 text-center bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
                   ¡Invita a tus Amigos!
@@ -163,7 +161,7 @@ export function EventPage({
                   Compartir Evento
                 </Button>
               </div>
-            </Card>
+            </Card> */}
 
             {/* old location of RSVP Section */}
           </div>

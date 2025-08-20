@@ -24,7 +24,7 @@ export function EditEventForm({
     description: event.description,
     datetime: datestrForDatetimeInput(event.start),
     location: event.location,
-    coverImage: null as File | null,
+    coverImage: event.image,
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -34,7 +34,7 @@ export function EditEventForm({
       description: formData.description ?? "",
       start: new Date(formData.datetime),
       location: formData.location ?? "",
-      coverImage: null,
+      coverImage: formData.coverImage,
     });
     console.log("Updated event data:", formData);
     // Here you would typically send the updated data to your backend
@@ -107,7 +107,7 @@ export function EditEventForm({
             <ImageUpload
               currentImage={event.image}
               selectedFile={formData.coverImage}
-              onFileSelect={(file) => updateFormData("coverImage", file)}
+              onImageSelect={(file) => updateFormData("coverImage", file)}
             />
 
             {/* Action Buttons */}
