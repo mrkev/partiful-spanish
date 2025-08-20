@@ -1,13 +1,11 @@
 "use client";
 
-import type React from "react";
-
+import { signup } from "@/app/login/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Mail, Lock, User, Sparkles } from "lucide-react";
+import { Lock, Mail, Sparkles, User } from "lucide-react";
 import { useState } from "react";
-import { useAuth } from "@/hooks/UseAuth";
 
 export function SignupForm() {
   const [formData, setFormData] = useState({
@@ -18,40 +16,44 @@ export function SignupForm() {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const { signUp } = useAuth();
+  // const { signUp } = useAuth();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError("");
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setIsLoading(true);
+  //   setError("");
 
-    if (formData.password !== formData.confirmPassword) {
-      setError("Las contraseñas no coinciden");
-      setIsLoading(false);
-      return;
-    }
+  //   if (formData.password !== formData.confirmPassword) {
+  //     setError("Las contraseñas no coinciden");
+  //     setIsLoading(false);
+  //     return;
+  //   }
 
-    if (formData.password.length < 6) {
-      setError("La contraseña debe tener al menos 6 caracteres");
-      setIsLoading(false);
-      return;
-    }
+  //   if (formData.password.length < 6) {
+  //     setError("La contraseña debe tener al menos 6 caracteres");
+  //     setIsLoading(false);
+  //     return;
+  //   }
 
-    try {
-      await signUp(formData.email, formData.password, formData.name);
-    } catch (err: any) {
-      setError(err.message || "Error al crear la cuenta");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  //   try {
+  //     await signUp(formData.email, formData.password, formData.name);
+  //   } catch (err: any) {
+  //     setError(err.message || "Error al crear la cuenta");
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   const updateFormData = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form
+      // onSubmit={handleSubmit}
+
+      className="space-y-6"
+    >
       {error && (
         <div className="bg-red-50 border border-red-200 rounded-lg p-4">
           <p className="text-red-700 text-sm">{error}</p>
@@ -68,6 +70,7 @@ export function SignupForm() {
         </Label>
         <Input
           id="name"
+          name="name"
           type="text"
           placeholder="Tu nombre"
           value={formData.name}
@@ -87,6 +90,7 @@ export function SignupForm() {
         </Label>
         <Input
           id="signup-email"
+          name="email"
           type="email"
           placeholder="tu@email.com"
           value={formData.email}
@@ -106,6 +110,7 @@ export function SignupForm() {
         </Label>
         <Input
           id="signup-password"
+          name="password"
           type="password"
           placeholder="••••••••"
           value={formData.password}
@@ -136,6 +141,7 @@ export function SignupForm() {
 
       <Button
         type="submit"
+        formAction={signup}
         disabled={isLoading}
         className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white text-lg py-4 rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:transform-none"
       >

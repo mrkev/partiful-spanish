@@ -4,7 +4,7 @@ import { LoginForm } from "@/components/Auth/LoginForm";
 import { SignupForm } from "@/components/Auth/SignupForm";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Sparkles, ArrowLeft } from "lucide-react";
+import { ArrowLeft, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 

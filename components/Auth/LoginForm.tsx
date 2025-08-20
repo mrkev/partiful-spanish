@@ -1,37 +1,38 @@
 "use client";
 
-import type React from "react";
-
+import { login } from "@/app/login/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Mail, Lock, Sparkles } from "lucide-react";
+import { Lock, Mail, Sparkles } from "lucide-react";
 import { useState } from "react";
-import { useAuth } from "@/hooks/UseAuth";
 
 export function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const { signIn } = useAuth();
+  // const { signIn } = useAuth();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError("");
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setIsLoading(true);
+  //   setError("");
 
-    try {
-      await signIn(email, password);
-    } catch (err: any) {
-      setError(err.message || "Error al iniciar sesión");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  //   try {
+  //     await signIn(email, password);
+  //   } catch (err: any) {
+  //     setError(err.message || "Error al iniciar sesión");
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form
+      // onSubmit={handleSubmit}
+      className="space-y-6"
+    >
       {error && (
         <div className="bg-red-50 border border-red-200 rounded-lg p-4">
           <p className="text-red-700 text-sm">{error}</p>
@@ -48,6 +49,7 @@ export function LoginForm() {
         </Label>
         <Input
           id="email"
+          name="email"
           type="email"
           placeholder="tu@email.com"
           value={email}
@@ -67,6 +69,7 @@ export function LoginForm() {
         </Label>
         <Input
           id="password"
+          name="password"
           type="password"
           placeholder="••••••••"
           value={password}
@@ -78,6 +81,7 @@ export function LoginForm() {
 
       <Button
         type="submit"
+        formAction={login}
         disabled={isLoading}
         className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white text-lg py-4 rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:transform-none"
       >
