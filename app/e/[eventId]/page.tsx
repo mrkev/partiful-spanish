@@ -1,12 +1,23 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, Calendar, MapPin, Users, Clock, Share2, Sparkles, Check, X, HelpCircle } from "lucide-react"
-import Link from "next/link"
-import Image from "next/image"
-import { useState } from "react"
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  ArrowLeft,
+  Calendar,
+  MapPin,
+  Users,
+  Clock,
+  Share2,
+  Sparkles,
+  Check,
+  X,
+  HelpCircle,
+} from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+import { useState } from "react";
 
 // Mock data - in a real app, this would come from your API
 const mockEventData = {
@@ -25,14 +36,14 @@ const mockEventData = {
     no: 3,
     maybe: 8,
   },
-}
+};
 
-type RSVPStatus = "yes" | "no" | "maybe" | null
+type RSVPStatus = "yes" | "no" | "maybe" | null;
 
 export default function EventPage({ params }: { params: { eventId: string } }) {
-  const [userRSVP, setUserRSVP] = useState<RSVPStatus>(null)
-  const [rsvpCounts, setRsvpCounts] = useState(mockEventData.rsvpCounts)
-  const [showConfirmation, setShowConfirmation] = useState(false)
+  const [userRSVP, setUserRSVP] = useState<RSVPStatus>(null);
+  const [rsvpCounts, setRsvpCounts] = useState(mockEventData.rsvpCounts);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   const handleRSVP = (status: RSVPStatus) => {
     // Remove previous RSVP count if user had already RSVP'd
@@ -40,7 +51,7 @@ export default function EventPage({ params }: { params: { eventId: string } }) {
       setRsvpCounts((prev) => ({
         ...prev,
         [userRSVP]: prev[userRSVP] - 1,
-      }))
+      }));
     }
 
     // Add new RSVP count
@@ -48,38 +59,38 @@ export default function EventPage({ params }: { params: { eventId: string } }) {
       setRsvpCounts((prev) => ({
         ...prev,
         [status]: prev[status] + 1,
-      }))
+      }));
     }
 
-    setUserRSVP(status)
-    setShowConfirmation(true)
+    setUserRSVP(status);
+    setShowConfirmation(true);
 
     // Hide confirmation after 3 seconds
-    setTimeout(() => setShowConfirmation(false), 3000)
-  }
+    setTimeout(() => setShowConfirmation(false), 3000);
+  };
 
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString)
+    const date = new Date(dateString);
     return date.toLocaleDateString("es-ES", {
       weekday: "long",
       year: "numeric",
       month: "long",
       day: "numeric",
-    })
-  }
+    });
+  };
 
   const getConfirmationMessage = () => {
     switch (userRSVP) {
       case "yes":
-        return "¡Genial! Nos vemos en la fiesta 🎉"
+        return "¡Genial! Nos vemos en la fiesta 🎉";
       case "no":
-        return "Entendido, te extrañaremos 😢"
+        return "Entendido, te extrañaremos 😢";
       case "maybe":
-        return "Esperamos que puedas venir 🤞"
+        return "Esperamos que puedas venir 🤞";
       default:
-        return ""
+        return "";
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-cyan-100">
@@ -98,7 +109,7 @@ export default function EventPage({ params }: { params: { eventId: string } }) {
               <Sparkles className="w-5 h-5 text-white" />
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-              FiestaFácil
+              Awebo
             </span>
           </div>
           <Button
@@ -125,9 +136,15 @@ export default function EventPage({ params }: { params: { eventId: string } }) {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
             <div className="absolute bottom-6 left-6 text-white">
-              <Badge className="bg-pink-500 hover:bg-pink-600 mb-2">Evento Público</Badge>
-              <h1 className="text-3xl md:text-5xl font-bold mb-2 leading-tight">{mockEventData.title}</h1>
-              <p className="text-lg opacity-90">Organizado por {mockEventData.hostName}</p>
+              <Badge className="bg-pink-500 hover:bg-pink-600 mb-2">
+                Evento Público
+              </Badge>
+              <h1 className="text-3xl md:text-5xl font-bold mb-2 leading-tight">
+                {mockEventData.title}
+              </h1>
+              <p className="text-lg opacity-90">
+                Organizado por {mockEventData.hostName}
+              </p>
             </div>
           </div>
 
@@ -143,8 +160,12 @@ export default function EventPage({ params }: { params: { eventId: string } }) {
                         <Calendar className="w-6 h-6 text-white" />
                       </div>
                       <div>
-                        <p className="text-sm text-gray-500 uppercase tracking-wide font-semibold">Fecha</p>
-                        <p className="text-lg font-bold text-gray-800 capitalize">{formatDate(mockEventData.date)}</p>
+                        <p className="text-sm text-gray-500 uppercase tracking-wide font-semibold">
+                          Fecha
+                        </p>
+                        <p className="text-lg font-bold text-gray-800 capitalize">
+                          {formatDate(mockEventData.date)}
+                        </p>
                       </div>
                     </div>
                     <div className="flex items-center space-x-4">
@@ -152,8 +173,12 @@ export default function EventPage({ params }: { params: { eventId: string } }) {
                         <Clock className="w-6 h-6 text-white" />
                       </div>
                       <div>
-                        <p className="text-sm text-gray-500 uppercase tracking-wide font-semibold">Hora</p>
-                        <p className="text-lg font-bold text-gray-800">{mockEventData.time} hrs</p>
+                        <p className="text-sm text-gray-500 uppercase tracking-wide font-semibold">
+                          Hora
+                        </p>
+                        <p className="text-lg font-bold text-gray-800">
+                          {mockEventData.time} hrs
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -162,8 +187,12 @@ export default function EventPage({ params }: { params: { eventId: string } }) {
                       <MapPin className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500 uppercase tracking-wide font-semibold">Ubicación</p>
-                      <p className="text-lg font-bold text-gray-800">{mockEventData.location}</p>
+                      <p className="text-sm text-gray-500 uppercase tracking-wide font-semibold">
+                        Ubicación
+                      </p>
+                      <p className="text-lg font-bold text-gray-800">
+                        {mockEventData.location}
+                      </p>
                     </div>
                   </div>
                 </CardContent>
@@ -175,7 +204,9 @@ export default function EventPage({ params }: { params: { eventId: string } }) {
                   <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
                     Sobre el Evento
                   </h2>
-                  <p className="text-gray-700 leading-relaxed text-lg">{mockEventData.description}</p>
+                  <p className="text-gray-700 leading-relaxed text-lg">
+                    {mockEventData.description}
+                  </p>
                 </CardContent>
               </Card>
             </div>
@@ -210,7 +241,10 @@ export default function EventPage({ params }: { params: { eventId: string } }) {
                       }`}
                     >
                       <Check className="w-5 h-5 mr-2" />
-                      Sí, voy ({rsvpCounts.yes}){userRSVP === "yes" && <Sparkles className="w-5 h-5 ml-2" />}
+                      Sí, voy ({rsvpCounts.yes})
+                      {userRSVP === "yes" && (
+                        <Sparkles className="w-5 h-5 ml-2" />
+                      )}
                     </Button>
 
                     {/* Maybe Button */}
@@ -223,7 +257,10 @@ export default function EventPage({ params }: { params: { eventId: string } }) {
                       }`}
                     >
                       <HelpCircle className="w-5 h-5 mr-2" />
-                      Tal vez ({rsvpCounts.maybe}){userRSVP === "maybe" && <Sparkles className="w-5 h-5 ml-2" />}
+                      Tal vez ({rsvpCounts.maybe})
+                      {userRSVP === "maybe" && (
+                        <Sparkles className="w-5 h-5 ml-2" />
+                      )}
                     </Button>
 
                     {/* No Button */}
@@ -236,7 +273,10 @@ export default function EventPage({ params }: { params: { eventId: string } }) {
                       }`}
                     >
                       <X className="w-5 h-5 mr-2" />
-                      No puedo ({rsvpCounts.no}){userRSVP === "no" && <Sparkles className="w-5 h-5 ml-2" />}
+                      No puedo ({rsvpCounts.no})
+                      {userRSVP === "no" && (
+                        <Sparkles className="w-5 h-5 ml-2" />
+                      )}
                     </Button>
                   </div>
 
@@ -245,11 +285,13 @@ export default function EventPage({ params }: { params: { eventId: string } }) {
                     <div className="flex items-center justify-center space-x-2 mb-2">
                       <Users className="w-5 h-5 text-purple-600" />
                       <span className="text-lg font-bold text-purple-800">
-                        {rsvpCounts.yes + rsvpCounts.maybe + rsvpCounts.no} personas han respondido
+                        {rsvpCounts.yes + rsvpCounts.maybe + rsvpCounts.no}{" "}
+                        personas han respondido
                       </span>
                     </div>
                     <p className="text-sm text-gray-600">
-                      {rsvpCounts.yes} confirmados • {rsvpCounts.maybe} indecisos • {rsvpCounts.no} no van
+                      {rsvpCounts.yes} confirmados • {rsvpCounts.maybe}{" "}
+                      indecisos • {rsvpCounts.no} no van
                     </p>
                   </div>
                 </CardContent>
@@ -272,5 +314,5 @@ export default function EventPage({ params }: { params: { eventId: string } }) {
         </div>
       </div>
     </div>
-  )
+  );
 }

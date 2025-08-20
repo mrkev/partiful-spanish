@@ -1,15 +1,15 @@
-"use client"
+"use client";
 
-import { LoginForm } from "@/components/Auth/LoginForm"
-import { SignupForm } from "@/components/Auth/SignupForm"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Sparkles, ArrowLeft } from "lucide-react"
-import Link from "next/link"
-import { useState } from "react"
+import { LoginForm } from "@/components/Auth/LoginForm";
+import { SignupForm } from "@/components/Auth/SignupForm";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Sparkles, ArrowLeft } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
 
 export default function LoginPage() {
-  const [isLogin, setIsLogin] = useState(true)
+  const [isLogin, setIsLogin] = useState(true);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-cyan-100">
@@ -28,7 +28,7 @@ export default function LoginPage() {
               <Sparkles className="w-5 h-5 text-white" />
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-              FiestaFácil
+              Awebo
             </span>
           </div>
         </div>
@@ -56,7 +56,9 @@ export default function LoginPage() {
 
               {/* Toggle between login/signup */}
               <div className="text-center mt-6 pt-6 border-t border-gray-200">
-                <p className="text-gray-600 mb-4">{isLogin ? "¿No tienes cuenta?" : "¿Ya tienes cuenta?"}</p>
+                <p className="text-gray-600 mb-4">
+                  {isLogin ? "¿No tienes cuenta?" : "¿Ya tienes cuenta?"}
+                </p>
                 <Button
                   variant="ghost"
                   onClick={() => setIsLogin(!isLogin)}
@@ -70,10 +72,12 @@ export default function LoginPage() {
 
           {/* Fun Footer Message */}
           <div className="text-center mt-8">
-            <p className="text-gray-600">🎉 Únete a miles de organizadores de fiestas épicas</p>
+            <p className="text-gray-600">
+              🎉 Únete a miles de organizadores de fiestas épicas
+            </p>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -1,26 +1,29 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Calendar, Users, Sparkles, Zap, Heart } from "lucide-react"
-import { AuthModal } from "@/components/Auth/AuthModal"
-import Link from "next/link"
-import Image from "next/image"
-import { useState } from "react"
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Calendar, Users, Sparkles, Zap, Heart } from "lucide-react";
+import { AuthModal } from "@/components/Auth/AuthModal";
+import Link from "next/link";
+import Image from "next/image";
+import { useState } from "react";
 
 export default function HomePage() {
-  const [authModal, setAuthModal] = useState<{ isOpen: boolean; tab: "login" | "signup" }>({
+  const [authModal, setAuthModal] = useState<{
+    isOpen: boolean;
+    tab: "login" | "signup";
+  }>({
     isOpen: false,
     tab: "login",
-  })
+  });
 
   const openAuthModal = (tab: "login" | "signup") => {
-    setAuthModal({ isOpen: true, tab })
-  }
+    setAuthModal({ isOpen: true, tab });
+  };
 
   const closeAuthModal = () => {
-    setAuthModal({ isOpen: false, tab: "login" })
-  }
+    setAuthModal({ isOpen: false, tab: "login" });
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-cyan-100">
@@ -32,7 +35,7 @@ export default function HomePage() {
               <Sparkles className="w-5 h-5 text-white" />
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-              FiestaFácil
+              Awebo
             </span>
           </div>
           <div className="flex items-center space-x-3">
@@ -64,8 +67,10 @@ export default function HomePage() {
             </h1>
             <p className="text-xl md:text-2xl text-gray-700 mb-8 max-w-2xl mx-auto leading-relaxed">
               La plataforma más cool para organizar eventos increíbles.
-              <span className="font-semibold text-purple-700">Invita, organiza y celebra</span> como en los 90s pero con
-              estilo 2024.
+              <span className="font-semibold text-purple-700">
+                Invita, organiza y celebra
+              </span>{" "}
+              como en los 90s pero con estilo 2024.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
               <Link href="/create">
@@ -91,7 +96,7 @@ export default function HomePage() {
               <div className="bg-gradient-to-r from-pink-200 to-purple-200 rounded-3xl p-8 shadow-2xl">
                 <Image
                   src="/90s-party-invite-app.png"
-                  alt="FiestaFácil App Interface"
+                  alt="Awebo App Interface"
                   width={800}
                   height={400}
                   className="rounded-2xl shadow-lg"
@@ -114,7 +119,8 @@ export default function HomePage() {
               ¿Cómo Funciona?
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Organizar la fiesta perfecta nunca fue tan fácil. Solo 3 pasos y listo para rockear.
+              Organizar la fiesta perfecta nunca fue tan fácil. Solo 3 pasos y
+              listo para rockear.
             </p>
           </div>
 
@@ -128,9 +134,12 @@ export default function HomePage() {
                 <div className="absolute top-4 right-4 bg-pink-500 text-white text-sm font-bold px-3 py-1 rounded-full">
                   01
                 </div>
-                <h3 className="text-2xl font-bold text-pink-800 mb-4">Crea tu Evento</h3>
+                <h3 className="text-2xl font-bold text-pink-800 mb-4">
+                  Crea tu Evento
+                </h3>
                 <p className="text-gray-700 leading-relaxed">
-                  Añade todos los detalles: fecha, lugar, descripción y sube una imagen súper cool para tu evento.
+                  Añade todos los detalles: fecha, lugar, descripción y sube una
+                  imagen súper cool para tu evento.
                 </p>
               </CardContent>
             </Card>
@@ -144,9 +153,12 @@ export default function HomePage() {
                 <div className="absolute top-4 right-4 bg-purple-500 text-white text-sm font-bold px-3 py-1 rounded-full">
                   02
                 </div>
-                <h3 className="text-2xl font-bold text-purple-800 mb-4">Invita a tu Crew</h3>
+                <h3 className="text-2xl font-bold text-purple-800 mb-4">
+                  Invita a tu Crew
+                </h3>
                 <p className="text-gray-700 leading-relaxed">
-                  Comparte el link con tus amigos por WhatsApp, Instagram o donde sea. Ellos confirman con un click.
+                  Comparte el link con tus amigos por WhatsApp, Instagram o
+                  donde sea. Ellos confirman con un click.
                 </p>
               </CardContent>
             </Card>
@@ -160,9 +172,12 @@ export default function HomePage() {
                 <div className="absolute top-4 right-4 bg-cyan-500 text-white text-sm font-bold px-3 py-1 rounded-full">
                   03
                 </div>
-                <h3 className="text-2xl font-bold text-cyan-800 mb-4">¡A Celebrar!</h3>
+                <h3 className="text-2xl font-bold text-cyan-800 mb-4">
+                  ¡A Celebrar!
+                </h3>
                 <p className="text-gray-700 leading-relaxed">
-                  Recibe confirmaciones en tiempo real y disfruta de la mejor fiesta. Nosotros nos encargamos del resto.
+                  Recibe confirmaciones en tiempo real y disfruta de la mejor
+                  fiesta. Nosotros nos encargamos del resto.
                 </p>
               </CardContent>
             </Card>
@@ -176,7 +191,8 @@ export default function HomePage() {
                   ¿Listo para la Fiesta?
                 </h3>
                 <p className="text-gray-600 mb-6 text-lg">
-                  Únete a miles de millennials que ya están organizando eventos épicos
+                  Únete a miles de millennials que ya están organizando eventos
+                  épicos
                 </p>
                 <Button
                   size="lg"
@@ -199,9 +215,11 @@ export default function HomePage() {
             <div className="w-8 h-8 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full flex items-center justify-center">
               <Sparkles className="w-5 h-5 text-white" />
             </div>
-            <span className="text-2xl font-bold">FiestaFácil</span>
+            <span className="text-2xl font-bold">Awebo</span>
           </div>
-          <p className="text-purple-200 mb-4">Haciendo que cada celebración sea inolvidable desde 2024</p>
+          <p className="text-purple-200 mb-4">
+            Haciendo que cada celebración sea inolvidable desde 2024
+          </p>
           <div className="flex justify-center space-x-6 text-sm text-purple-300">
             <Link href="#" className="hover:text-white transition-colors">
               Términos
@@ -217,7 +235,11 @@ export default function HomePage() {
       </footer>
 
       {/* Auth Modal */}
-      <AuthModal isOpen={authModal.isOpen} onClose={closeAuthModal} defaultTab={authModal.tab} />
+      <AuthModal
+        isOpen={authModal.isOpen}
+        onClose={closeAuthModal}
+        defaultTab={authModal.tab}
+      />
     </div>
-  )
+  );
 }

@@ -1,20 +1,20 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { Plus, Sparkles, LogOut } from "lucide-react"
-import Link from "next/link"
-import { useAuth } from "@/hooks/UseAuth"
+import { Button } from "@/components/ui/button";
+import { Plus, Sparkles, LogOut } from "lucide-react";
+import Link from "next/link";
+import { useAuth } from "@/hooks/UseAuth";
 
 export function DashboardHeader() {
-  const { user, signOut } = useAuth()
+  const { user, signOut } = useAuth();
 
   const handleSignOut = async () => {
     try {
-      await signOut()
+      await signOut();
     } catch (error) {
-      console.error("Error signing out:", error)
+      console.error("Error signing out:", error);
     }
-  }
+  };
 
   return (
     <header className="bg-white/80 backdrop-blur-md border-b border-purple-200 sticky top-0 z-50">
@@ -24,7 +24,7 @@ export function DashboardHeader() {
             <Sparkles className="w-5 h-5 text-white" />
           </div>
           <span className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-            FiestaFácil
+            Awebo
           </span>
         </Link>
         <div className="flex items-center space-x-3">
@@ -50,5 +50,5 @@ export function DashboardHeader() {
         </div>
       </div>
     </header>
-  )
+  );
 }
