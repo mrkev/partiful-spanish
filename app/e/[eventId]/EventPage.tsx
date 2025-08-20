@@ -8,25 +8,6 @@ import { MapPin, Share2 } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
-// Mock data - in a real app, this would come from your API
-const mockEventData2 = {
-  id: "retro-90s-party",
-  title: "Fiesta Retro 90s - ¡Volvamos al Pasado!",
-  description:
-    "¡Prepárate para un viaje en el tiempo! Una noche llena de música de los 90s, karaoke, juegos retro y mucha nostalgia. Ven vestido con tu outfit más 90s y prepárate para bailar hasta el amanecer. Habrá concursos, premios y sorpresas increíbles. ¡No te lo puedes perder!",
-  date: "2024-02-15",
-  time: "20:00",
-  location: "Casa de María - Calle Retro 123, CDMX",
-  coverImage: "/90s-party-cover.png",
-  hostName: "María González",
-  isPrivate: false,
-  rsvpCounts: {
-    yes: 24,
-    no: 3,
-    maybe: 8,
-  },
-};
-
 type RSVPStatus = "yes" | "no" | "maybe" | null;
 
 export function EventPage({

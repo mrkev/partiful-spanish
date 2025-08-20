@@ -3,6 +3,7 @@
 import prisma from "@/lib/prisma";
 import { emptythrows, nonempty } from "@/lib/utils/string";
 import { kevinId } from "./serveronly";
+import { expectGenLogin } from "./auth";
 
 export type NewEventData = {
   title: string;
@@ -43,4 +44,14 @@ export async function updateEvent(id: string, data: NewEventData) {
       location: nonempty(data.location),
     },
   });
+}
+
+export async function getAuthUserEvents() {
+  const { profile } = await expectGenLogin();
+  return {
+    events: await prisma.event.findMany({
+      where: { creatorId: profile.id },
+    }),
+    profile,
+  };
 }

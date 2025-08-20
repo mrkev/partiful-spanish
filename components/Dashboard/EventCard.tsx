@@ -1,22 +1,11 @@
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Calendar, MapPin, Users, Edit, Eye, Lock } from "lucide-react";
-import Link from "next/link";
+import { Event } from "@/lib/generated/prisma";
+import { formatDateShort, formatTimeShort } from "@/lib/utils/date";
+import { Calendar, Edit, Eye, MapPin } from "lucide-react";
 import Image from "next/image";
-
-interface Event {
-  id: string;
-  title: string;
-  description: string;
-  date: string;
-  time: string;
-  location: string;
-  coverImage: string;
-  isPrivate: boolean;
-  rsvpCount: number;
-  status: string;
-}
+import Link from "next/link";
 
 interface EventCardProps {
   event: Event;
@@ -32,14 +21,14 @@ export function EventCard({ event }: EventCardProps) {
     });
   };
 
-  const isUpcoming = event.status === "upcoming";
+  const isUpcoming = event.start.getTime() > Date.now();
 
   return (
-    <Card className="overflow-hidden border-0 shadow-xl bg-white/90 backdrop-blur-sm hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+    <Card className="overflow-hidden border-0 shadow-xl bg-white/90 backdrop-blur-sm hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 p-0 gap-0">
       {/* Cover Image */}
       <div className="relative h-48 overflow-hidden">
         <Image
-          src={event.coverImage || "/placeholder.svg?height=200&width=400"}
+          src={event.image || "/placeholder.svg?height=200&width=400"}
           alt={event.title}
           fill
           className="object-cover"
@@ -56,14 +45,14 @@ export function EventCard({ event }: EventCardProps) {
         </div>
 
         {/* Private Badge */}
-        {event.isPrivate && (
+        {/* {event.isPrivate && (
           <div className="absolute top-3 right-3">
             <Badge className="bg-purple-500 hover:bg-purple-600 text-white">
               <Lock className="w-3 h-3 mr-1" />
               Privado
             </Badge>
           </div>
-        )}
+        )} */}
 
         {/* Title Overlay */}
         <div className="absolute bottom-3 left-3 right-3">
@@ -79,7 +68,7 @@ export function EventCard({ event }: EventCardProps) {
           <div className="flex items-center text-gray-600 text-sm">
             <Calendar className="w-4 h-4 mr-2 text-pink-500" />
             <span>
-              {formatDate(event.date)} • {event.time} hrs
+              {formatDateShort(event.start)} • {formatTimeShort(event.start)}
             </span>
           </div>
 
@@ -88,10 +77,10 @@ export function EventCard({ event }: EventCardProps) {
             <span className="truncate">{event.location}</span>
           </div>
 
-          <div className="flex items-center text-gray-600 text-sm">
+          {/* <div className="flex items-center text-gray-600 text-sm">
             <Users className="w-4 h-4 mr-2 text-cyan-500" />
             <span>{event.rsvpCount} confirmados</span>
-          </div>
+          </div> */}
         </div>
 
         {/* Description */}

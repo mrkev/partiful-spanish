@@ -1,5 +1,5 @@
-import { ArrowLeft, Sparkles } from "lucide-react"
-import Link from "next/link"
+import { ArrowLeft, Sparkles } from "lucide-react";
+import Link from "next/link";
 
 export function EditEventHeader() {
   return (
@@ -10,7 +10,7 @@ export function EditEventHeader() {
           className="flex items-center space-x-2 text-purple-700 hover:text-purple-900 transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
-          <span className="font-semibold">Volver al Dashboard</span>
+          <span className="font-semibold">Volver al Inicio</span>
         </Link>
         <div className="flex items-center space-x-2">
           <div className="w-8 h-8 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full flex items-center justify-center">
@@ -22,5 +22,5 @@ export function EditEventHeader() {
         </div>
       </div>
     </header>
-  )
+  );
 }

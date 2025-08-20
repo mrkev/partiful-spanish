@@ -1,19 +1,7 @@
 import { Badge } from "@/components/ui/badge";
-import { EventCard } from "./EventCard";
+import { Event } from "@/lib/generated/prisma";
 import { cn } from "@/lib/utils";
-
-interface Event {
-  id: string;
-  title: string;
-  description: string;
-  date: string;
-  time: string;
-  location: string;
-  coverImage: string;
-  isPrivate: boolean;
-  rsvpCount: number;
-  status: string;
-}
+import { EventCard } from "./EventCard";
 
 interface EventSectionProps {
   title: string;
@@ -44,7 +32,7 @@ export function EventSection({
         <h2
           className={cn(
             "text-3xl font-bold bg-gradient-to-r bg-clip-text text-transparent",
-            titleStyles[badgeColor],
+            titleStyles[badgeColor]
           )}
         >
           {title}

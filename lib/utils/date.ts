@@ -19,6 +19,16 @@ export function formatTimeWithTimezone(date: Date): string {
   return `${timeString.toLocaleLowerCase().replaceAll(" ", "")} ${timeZone ?? ""}`;
 }
 
+export function formatTimeShort(date: Date): string {
+  // Get localized time string
+  const timeString = date.toLocaleTimeString(undefined, {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  return timeString.toLocaleLowerCase().replaceAll(" ", "");
+}
+
 export function formatDateShort(date: Date): string {
   return date
     .toLocaleDateString(undefined, {

@@ -17,10 +17,6 @@ export function DashboardHeader() {
           </span>
         </Link>
         <div className="flex items-center space-x-3">
-          <span className="text-sm text-gray-600 hidden sm:block">
-            ¡Hola TODO!
-          </span>
-
           <Link href="/create">
             <Button className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-lg">
               <Plus className="w-4 h-4 mr-2" />

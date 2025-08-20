@@ -55,7 +55,7 @@ export default function CreateEventPage() {
       <header className="bg-white/80 backdrop-blur-md border-b border-purple-200">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link
-            href="/"
+            href="/inicio"
             className="flex items-center space-x-2 text-purple-700 hover:text-purple-900 transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
