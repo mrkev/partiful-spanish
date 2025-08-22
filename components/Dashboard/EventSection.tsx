@@ -32,7 +32,7 @@ export function EventSection({
         <h2
           className={cn(
             "text-3xl font-bold bg-gradient-to-r bg-clip-text text-transparent",
-            titleStyles[badgeColor]
+            titleStyles[badgeColor],
           )}
         >
           {title}

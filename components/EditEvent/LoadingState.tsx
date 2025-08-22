@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Sparkles } from "lucide-react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Sparkles } from "lucide-react";
 
 export function LoadingState() {
   return (
@@ -23,7 +23,9 @@ export function LoadingState() {
         <div className="max-w-2xl mx-auto">
           <Card className="shadow-2xl border-0 bg-white/90 backdrop-blur-sm">
             <CardHeader className="bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-t-lg">
-              <CardTitle className="text-2xl font-bold text-center">Cargando Evento...</CardTitle>
+              <CardTitle className="text-2xl font-bold text-center">
+                Cargando Evento...
+              </CardTitle>
             </CardHeader>
             <CardContent className="p-8">
               <div className="space-y-6">
@@ -53,5 +55,5 @@ export function LoadingState() {
         </div>
       </div>
     </div>
-  )
+  );
 }

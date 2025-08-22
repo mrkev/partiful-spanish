@@ -14,10 +14,10 @@ export function DashboardPage({
   profile: User;
 }) {
   const upcomingEvents = events.filter(
-    (event) => event.start.getTime() > Date.now()
+    (event) => event.start.getTime() > Date.now(),
   );
   const pastEvents = events.filter(
-    (event) => event.start.getTime() <= Date.now()
+    (event) => event.start.getTime() <= Date.now(),
   );
 
   return (

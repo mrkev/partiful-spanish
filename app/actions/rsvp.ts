@@ -6,7 +6,7 @@ import prisma from "@/lib/prisma";
 export async function doRSVP(
   eventId: string,
   userId: string,
-  status: RSVPStatus
+  status: RSVPStatus,
 ) {
   return await prisma.rSVP.upsert({
     where: { userId_eventId: { userId, eventId } },

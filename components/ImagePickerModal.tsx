@@ -73,7 +73,7 @@ export function ImagePickerModal({
         setIsUploading(false);
       }
     },
-    [onImageUpload]
+    [onImageUpload],
   );
 
   const handleDrop = useCallback(
@@ -88,7 +88,7 @@ export function ImagePickerModal({
         handleFileUpload(imageFile);
       }
     },
-    [handleFileUpload]
+    [handleFileUpload],
   );
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
@@ -108,7 +108,7 @@ export function ImagePickerModal({
         handleFileUpload(file);
       }
     },
-    [handleFileUpload]
+    [handleFileUpload],
   );
 
   const handleImageClick = useCallback(
@@ -116,7 +116,7 @@ export function ImagePickerModal({
       onImageSelect?.(imageUrl);
       onClose();
     },
-    [onImageSelect, onClose]
+    [onImageSelect, onClose],
   );
 
   return (
@@ -155,7 +155,7 @@ export function ImagePickerModal({
                     "border-2 border-dashed rounded-lg p-6 text-center transition-colors",
                     isDragOver
                       ? "border-primary bg-primary/5"
-                      : "border-muted-foreground/25 hover:border-primary/50"
+                      : "border-muted-foreground/25 hover:border-primary/50",
                   )}
                   onDrop={handleDrop}
                   onDragOver={handleDragOver}

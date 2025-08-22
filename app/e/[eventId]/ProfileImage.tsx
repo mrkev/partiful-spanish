@@ -19,14 +19,14 @@ export function ProfileImage({
       height={40}
       className={twMerge(
         "rounded-full object-cover inline-block w-10 h-10",
-        className
+        className,
       )}
     />
   ) : (
     <div
       className={twMerge(
         "w-10 h-10 inline-flex items-center justify-center rounded-full bg-gray-200 text-gray-700 font-semibold",
-        className
+        className,
       )}
     >
       {initial}
