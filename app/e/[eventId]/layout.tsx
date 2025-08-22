@@ -3,8 +3,8 @@ import { ownsEvent } from "@/app/actions/event";
 import { Button } from "@/components/ui/button";
 import { User } from "@/lib/generated/prisma";
 import { Pencil, Share2 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
+import { ProfileImage } from "./ProfileImage";
 
 export default async function Layout({
   children,
@@ -80,19 +80,7 @@ function OwnerPill({
         </div>
         {/* Profile link */}
         <Link href="/inicio" className="flex items-center space-x-2">
-          {profile.image ? (
-            <Image
-              src={profile.image}
-              alt={profile.name ?? "profile picture"}
-              width={40}
-              height={40}
-              className="rounded-full object-cover"
-            />
-          ) : (
-            <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 text-gray-700 font-semibold">
-              {initial}
-            </div>
-          )}
+          <ProfileImage profile={profile} />
         </Link>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { getEvent } from "@/app/actions/event";
 import { EventPage } from "./EventPage";
+import { genLogin } from "@/app/actions/auth";
 
 export default async function Page({
   params: paramsPromise,
@@ -8,5 +9,6 @@ export default async function Page({
 }) {
   const params = await paramsPromise;
   const event = await getEvent(params.eventId);
-  return <EventPage event={event} />;
+  const login = await genLogin();
+  return <EventPage event={event} profile={login.profile} />;
 }
