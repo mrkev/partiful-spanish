@@ -35,7 +35,7 @@ export function LandingPage() {
               <Sparkles className="w-5 h-5 text-white" />
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-              Awebo
+              GPI
             </span>
           </div>
           <div className="flex items-center space-x-3">
@@ -96,7 +96,7 @@ export function LandingPage() {
               <div className="bg-gradient-to-r from-pink-200 to-purple-200 rounded-3xl p-8 shadow-2xl">
                 <Image
                   src="/90s-party-invite-app.png"
-                  alt="Awebo App Interface"
+                  alt="GPI App Interface"
                   width={800}
                   height={400}
                   className="rounded-2xl shadow-lg"
@@ -215,7 +215,7 @@ export function LandingPage() {
             <div className="w-8 h-8 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full flex items-center justify-center">
               <Sparkles className="w-5 h-5 text-white" />
             </div>
-            <span className="text-2xl font-bold">Awebo</span>
+            <span className="text-2xl font-bold">GPI</span>
           </div>
           <p className="text-purple-200 mb-4">
             Haciendo que cada celebración sea inolvidable desde 2024
