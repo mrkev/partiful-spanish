@@ -4,7 +4,6 @@ import { DashboardHeader } from "@/components/Dashboard/DashboardHeader";
 import { EmptyState } from "@/components/Dashboard/EmptyState";
 import { EventSection } from "@/components/Dashboard/EventSection";
 import { Event, User } from "@/lib/generated/prisma";
-import Link from "next/link";
 
 export function DashboardPage({
   events,
@@ -21,63 +20,35 @@ export function DashboardPage({
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-cyan-100">
+    <div className="min-h-screen bg-zinc-950 text-white">
       <DashboardHeader />
 
-      <div className="container mx-auto px-4 py-12">
-        <div className="max-w-7xl mx-auto">
-          {/* Page Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-              Hola de nuevo, {profile.name}.
-            </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              {upcomingEvents.length === 0 ? (
-                <>
-                  No se aproxima ningún evento.{" "}
-                  <Link className="hover:underline" href={"/create"}>
-                    ¡Organiza uno!
-                  </Link>
-                </>
-              ) : upcomingEvents.length === 1 ? (
-                <>
-                  Se aproxima un evento.{" "}
-                  <Link
-                    className="hover:underline"
-                    href={`/e/${upcomingEvents[0].id}`}
-                  >
-                    Este es el link.
-                  </Link>
-                </>
-              ) : (
-                <>
-                  ¡Se aproximan {upcomingEvents.length} eventos! Checalos abajo.
-                </>
-              )}
-            </p>
-          </div>
-
-          {/* Events Sections */}
-          {upcomingEvents.length > 0 && (
-            <EventSection
-              title="Próximos Eventos"
-              events={upcomingEvents}
-              badgeColor="green"
-              className="mb-16"
-            />
-          )}
-
-          {pastEvents.length > 0 && (
-            <EventSection
-              title="Eventos Pasados"
-              events={pastEvents}
-              badgeColor="gray"
-            />
-          )}
-
-          {/* Empty State */}
-          {events.length === 0 && <EmptyState />}
+      <div className="container mx-auto px-4 py-12 max-w-3xl">
+        <div className="mb-10">
+          <h1 className="text-3xl font-bold text-white">
+            Hola, {profile.name}.
+          </h1>
+          <p className="text-zinc-500 mt-1">Tus eventos</p>
         </div>
+
+        {events.length === 0 && <EmptyState />}
+
+        {upcomingEvents.length > 0 && (
+          <EventSection
+            title="Próximos"
+            events={upcomingEvents}
+            badgeColor="green"
+            className="mb-10"
+          />
+        )}
+
+        {pastEvents.length > 0 && (
+          <EventSection
+            title="Pasados"
+            events={pastEvents}
+            badgeColor="gray"
+          />
+        )}
       </div>
     </div>
   );

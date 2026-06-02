@@ -2,7 +2,6 @@
 
 import prisma from "@/lib/prisma";
 import { emptythrows, nonempty } from "@/lib/utils/string";
-import { kevinId } from "./serveronly";
 import { expectGenLogin } from "./auth";
 
 export type NewEventData = {
@@ -14,14 +13,14 @@ export type NewEventData = {
 };
 
 export async function createEvent(data: NewEventData) {
-  const id = await kevinId();
+  const { profile } = await expectGenLogin();
 
   return await prisma.event.create({
     data: {
       title: emptythrows(data.title),
       description: nonempty(data.description),
       start: data.start,
-      creatorId: id,
+      creatorId: profile.id,
       location: nonempty(data.location),
       image: data.coverImage,
     },

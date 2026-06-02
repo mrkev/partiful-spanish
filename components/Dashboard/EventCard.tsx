@@ -1,117 +1,114 @@
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+"use client";
+
 import { Event } from "@/lib/generated/prisma";
-import { formatDateShort, formatTimeShort } from "@/lib/utils/date";
-import { Calendar, Edit, Eye, MapPin } from "lucide-react";
+import { formatTimeShort } from "@/lib/utils/date";
+import { Calendar, MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRef } from "react";
 
 interface EventCardProps {
   event: Event;
 }
 
 export function EventCard({ event }: EventCardProps) {
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("es-ES", {
-      weekday: "short",
-      month: "short",
-      day: "numeric",
-    });
-  };
-
+  const cardRef = useRef<HTMLDivElement>(null);
   const isUpcoming = event.start.getTime() > Date.now();
 
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = cardRef.current;
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const rx = ((rect.height / 2 - y) / rect.height) * 12;
+    const ry = ((x - rect.width / 2) / rect.width) * 12;
+    card.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-6px) scale(1.02)`;
+    card.style.boxShadow = `0 24px 48px rgba(0,0,0,0.5)`;
+  };
+
+  const handleMouseLeave = () => {
+    const card = cardRef.current;
+    if (!card) return;
+    card.style.transform =
+      "perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0) scale(1)";
+    card.style.boxShadow = "";
+  };
+
   return (
-    <Card className="overflow-hidden border-0 shadow-xl bg-white/90 backdrop-blur-sm hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 p-0 gap-0">
-      {/* Cover Image */}
-      <div className="relative h-48 overflow-hidden">
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="relative rounded-2xl overflow-hidden h-72 bg-zinc-900 will-change-transform cursor-default"
+      style={{ transition: "transform 0.12s ease-out, box-shadow 0.12s ease-out" }}
+    >
+      {/* Background image */}
+      {event.image && (
         <Image
-          src={event.image || "/placeholder.svg?height=200&width=400"}
+          src={event.image}
           alt={event.title}
           fill
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+      )}
 
-        {/* Status Badge */}
-        <div className="absolute top-3 left-3">
-          <Badge
-            className={`${isUpcoming ? "bg-green-500 hover:bg-green-600" : "bg-gray-500 hover:bg-gray-600"} text-white`}
-          >
-            {isUpcoming ? "Próximo" : "Pasado"}
-          </Badge>
+      {/* Gradient overlay — always present so text is readable */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/10" />
+
+      {/* Date — top left */}
+      <div className="absolute top-4 left-4">
+        <div className="text-xs uppercase tracking-wide text-white/60 leading-none mb-0.5">
+          {event.start.toLocaleDateString("es-ES", { month: "short" })}
         </div>
-
-        {/* Private Badge */}
-        {/* {event.isPrivate && (
-          <div className="absolute top-3 right-3">
-            <Badge className="bg-purple-500 hover:bg-purple-600 text-white">
-              <Lock className="w-3 h-3 mr-1" />
-              Privado
-            </Badge>
-          </div>
-        )} */}
-
-        {/* Title Overlay */}
-        <div className="absolute bottom-3 left-3 right-3">
-          <h3 className="text-white font-bold text-lg leading-tight line-clamp-2">
-            {event.title}
-          </h3>
+        <div className="text-3xl font-bold text-white leading-none">
+          {event.start.getDate()}
         </div>
       </div>
 
-      <CardContent className="p-6">
-        {/* Event Details */}
-        <div className="space-y-3 mb-6">
-          <div className="flex items-center text-gray-600 text-sm">
-            <Calendar className="w-4 h-4 mr-2 text-pink-500" />
-            <span>
-              {formatDateShort(event.start)} • {formatTimeShort(event.start)}
+      {/* Status pill — top right */}
+      <div className="absolute top-4 right-4">
+        <span
+          className={`text-xs font-medium px-2 py-0.5 rounded-full ${
+            isUpcoming
+              ? "bg-violet-900/70 text-violet-300"
+              : "bg-black/50 text-zinc-500"
+          }`}
+        >
+          {isUpcoming ? "Próximo" : "Pasado"}
+        </span>
+      </div>
+
+      {/* Bottom content */}
+      <div className="absolute bottom-0 left-0 right-0 p-4">
+        <h3 className="font-bold text-white text-lg leading-tight mb-1 line-clamp-2">
+          {event.title}
+        </h3>
+        <div className="flex items-center gap-3 text-xs text-white/50 mb-3">
+          <span className="flex items-center gap-1">
+            <Calendar className="w-3 h-3" />
+            {formatTimeShort(event.start)}
+          </span>
+          {event.location && (
+            <span className="flex items-center gap-1 min-w-0">
+              <MapPin className="w-3 h-3 shrink-0" />
+              <span className="truncate">{event.location}</span>
             </span>
-          </div>
-
-          <div className="flex items-center text-gray-600 text-sm">
-            <MapPin className="w-4 h-4 mr-2 text-purple-500" />
-            <span className="truncate">{event.location}</span>
-          </div>
-
-          {/* <div className="flex items-center text-gray-600 text-sm">
-            <Users className="w-4 h-4 mr-2 text-cyan-500" />
-            <span>{event.rsvpCount} confirmados</span>
-          </div> */}
+          )}
         </div>
-
-        {/* Description */}
-        <p className="text-gray-700 text-sm mb-6 line-clamp-2 leading-relaxed">
-          {event.description}
-        </p>
-
-        {/* Action Buttons */}
         <div className="flex gap-2">
           <Link href={`/editar/${event.id}`} className="flex-1">
-            <Button
-              variant="outline"
-              size="sm"
-              className="w-full border-purple-300 text-purple-700 hover:bg-purple-50 bg-transparent"
-            >
-              <Edit className="w-4 h-4 mr-2" />
+            <button className="w-full text-xs py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors">
               Editar
-            </Button>
+            </button>
           </Link>
-
           <Link href={`/e/${event.id}`} className="flex-1">
-            <Button
-              size="sm"
-              className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white"
-            >
-              <Eye className="w-4 h-4 mr-2" />
+            <button className="w-full text-xs py-1.5 rounded-lg bg-violet-600/80 hover:bg-violet-600 text-white transition-colors">
               Ver
-            </Button>
+            </button>
           </Link>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
