@@ -103,7 +103,7 @@ export function EventPage({
     }
   };
 
-  const theme = "midnight";
+  const theme = "sunrise";
 
   return (
     <div
@@ -111,6 +111,7 @@ export function EventPage({
       className={twMerge(
         "min-h-screen bg-gradient-to-br",
         "from-pink-100 via-purple-50 to-cyan-100",
+        "theme-sunrise:from-sky-100 via-emerald-50 to-amber-100",
       )}
     >
       <div className="container mx-auto px-4 py-8 theme-dark:bg-black">
@@ -320,22 +321,6 @@ export function EventPage({
           </div>
         </div>
       </div>
-    </div>
-  );
-}
-
-function RedOGTheme({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-cyan-100">
-      {children}
-    </div>
-  );
-}
-
-function BlueSimpleTheme({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-sky-100 via-emerald-50 to-amber-100">
-      {children}
     </div>
   );
 }

@@ -2,7 +2,9 @@
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
-@custom-variant theme-midnight (&:where([data-theme="midnight"] *));
+
+/* event themes */
+@custom-variant theme-sunrise (&:where([data-theme="sunrise"] *));
 
 :root {
   --background: oklch(1 0 0);
