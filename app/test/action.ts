@@ -10,5 +10,5 @@ export async function testAction() {
   //   },
   // });
 
-  return prisma.supabase_user.findMany();
+  return 'ok'
 }

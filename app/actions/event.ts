@@ -1,8 +1,13 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { Prisma } from "@/lib/generated/prisma";
 import { emptythrows, nonempty } from "@/lib/utils/string";
 import { expectGenLogin } from "./auth";
+
+export type EventWithGoingCount = Prisma.EventGetPayload<{
+  include: { _count: { select: { rsvps: true } } };
+}>;
 
 export type NewEventData = {
   title: string;
@@ -52,6 +57,11 @@ export async function getAuthUserEvents() {
   return {
     events: await prisma.event.findMany({
       where: { creatorId: profile.id },
+      include: {
+        _count: {
+          select: { rsvps: { where: { status: { in: ["YES", "MAYBE"] } } } },
+        },
+      },
     }),
     profile,
   };

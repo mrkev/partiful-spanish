@@ -1,20 +1,14 @@
-import { Event } from "@/lib/generated/prisma";
+import { EventWithGoingCount } from "@/app/actions/event";
 import { cn } from "@/lib/utils";
 import { EventCard } from "./EventCard";
 
 interface EventSectionProps {
   title: string;
-  events: Event[];
-  badgeColor: "green" | "gray";
+  events: EventWithGoingCount[];
   className?: string;
 }
 
-export function EventSection({
-  title,
-  events,
-  badgeColor,
-  className,
-}: EventSectionProps) {
+export function EventSection({ title, events, className }: EventSectionProps) {
   return (
     <section className={cn(className)}>
       <div className="flex items-center justify-between mb-4">

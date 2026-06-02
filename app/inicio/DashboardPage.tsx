@@ -3,13 +3,14 @@
 import { DashboardHeader } from "@/components/Dashboard/DashboardHeader";
 import { EmptyState } from "@/components/Dashboard/EmptyState";
 import { EventSection } from "@/components/Dashboard/EventSection";
-import { Event, User } from "@/lib/generated/prisma";
+import { EventWithGoingCount } from "@/app/actions/event";
+import { User } from "@/lib/generated/prisma";
 
 export function DashboardPage({
   events,
   profile,
 }: {
-  events: Event[];
+  events: EventWithGoingCount[];
   profile: User;
 }) {
   const upcomingEvents = events.filter(
@@ -21,7 +22,7 @@ export function DashboardPage({
 
   return (
     <div className="min-h-screen bg-zinc-950 text-white">
-      <DashboardHeader />
+      <DashboardHeader profile={profile} />
 
       <div className="container mx-auto px-4 py-12 max-w-3xl">
         <div className="mb-10">
@@ -37,17 +38,12 @@ export function DashboardPage({
           <EventSection
             title="Próximos"
             events={upcomingEvents}
-            badgeColor="green"
             className="mb-10"
           />
         )}
 
         {pastEvents.length > 0 && (
-          <EventSection
-            title="Pasados"
-            events={pastEvents}
-            badgeColor="gray"
-          />
+          <EventSection title="Pasados" events={pastEvents} />
         )}
       </div>
     </div>

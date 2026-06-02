@@ -1,19 +1,19 @@
 "use client";
 
-import { Event } from "@/lib/generated/prisma";
+import { EventWithGoingCount } from "@/app/actions/event";
 import { formatTimeShort } from "@/lib/utils/date";
-import { Calendar, MapPin } from "lucide-react";
+import { Calendar, MapPin, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 
 interface EventCardProps {
-  event: Event;
+  event: EventWithGoingCount;
 }
 
 export function EventCard({ event }: EventCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
-  const isUpcoming = event.start.getTime() > Date.now();
+  const goingCount = event._count.rsvps;
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const card = cardRef.current;
@@ -41,7 +41,9 @@ export function EventCard({ event }: EventCardProps) {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className="relative rounded-2xl overflow-hidden h-72 bg-zinc-900 will-change-transform cursor-default"
-      style={{ transition: "transform 0.12s ease-out, box-shadow 0.12s ease-out" }}
+      style={{
+        transition: "transform 0.12s ease-out, box-shadow 0.12s ease-out",
+      }}
     >
       {/* Background image */}
       {event.image && (
@@ -66,16 +68,11 @@ export function EventCard({ event }: EventCardProps) {
         </div>
       </div>
 
-      {/* Status pill — top right */}
+      {/* Going count — top right */}
       <div className="absolute top-4 right-4">
-        <span
-          className={`text-xs font-medium px-2 py-0.5 rounded-full ${
-            isUpcoming
-              ? "bg-violet-900/70 text-violet-300"
-              : "bg-black/50 text-zinc-500"
-          }`}
-        >
-          {isUpcoming ? "Próximo" : "Pasado"}
+        <span className="flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full bg-black/50 text-white/80">
+          <Users className="w-3 h-3" />
+          {goingCount}
         </span>
       </div>
 
@@ -98,12 +95,12 @@ export function EventCard({ event }: EventCardProps) {
         </div>
         <div className="flex gap-2">
           <Link href={`/editar/${event.id}`} className="flex-1">
-            <button className="w-full text-xs py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors">
+            <button className="w-full text-xs py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer">
               Editar
             </button>
           </Link>
           <Link href={`/e/${event.id}`} className="flex-1">
-            <button className="w-full text-xs py-1.5 rounded-lg bg-violet-600/80 hover:bg-violet-600 text-white transition-colors">
+            <button className="w-full text-xs py-1.5 rounded-lg bg-violet-600/80 hover:bg-violet-600 text-white transition-colors cursor-pointer">
               Ver
             </button>
           </Link>

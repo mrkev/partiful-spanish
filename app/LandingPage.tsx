@@ -39,13 +39,14 @@ export function LandingPage() {
             </span>
           </div>
           <div className="flex items-center space-x-3">
-            <Button
-              variant="ghost"
-              className="text-purple-700 hover:text-purple-900 hover:bg-purple-100"
-              onClick={() => openAuthModal("login")}
-            >
-              Iniciar Sesión
-            </Button>
+            <Link href="/login">
+              <Button
+                variant="ghost"
+                className="text-purple-700 hover:text-purple-900 hover:bg-purple-100"
+              >
+                Iniciar Sesión
+              </Button>
+            </Link>
             <Button
               className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-lg"
               onClick={() => openAuthModal("signup")}

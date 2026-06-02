@@ -62,19 +62,27 @@ export function EventPage({
 
   const getConfirmationMessage = () => {
     switch (userRSVP) {
-      case "YES": return "¡Genial! ¡Nos vemos pronto!";
-      case "NO": return "¡Te extrañaremos!";
-      case "MAYBE": return "¡Esperamos que puedas venir!";
-      default: return "";
+      case "YES":
+        return "¡Genial! ¡Nos vemos pronto!";
+      case "NO":
+        return "¡Te extrañaremos!";
+      case "MAYBE":
+        return "¡Esperamos que puedas venir!";
+      default:
+        return "";
     }
   };
 
   const getConfirmationEmoji = () => {
     switch (userRSVP) {
-      case "YES": return "🎉";
-      case "NO": return "😭";
-      case "MAYBE": return "🤞";
-      default: return "";
+      case "YES":
+        return "🎉";
+      case "NO":
+        return "😭";
+      case "MAYBE":
+        return "🤞";
+      default:
+        return "";
     }
   };
 
@@ -86,7 +94,7 @@ export function EventPage({
     <main
       data-theme={theme}
       className={twMerge(
-        "min-h-screen bg-gradient-to-br",
+        "min-h-screen bg-linear-to-br",
         "from-pink-100 via-purple-50 to-cyan-100",
         "theme-sunrise:from-sky-100 via-emerald-50 to-amber-100",
       )}
@@ -98,7 +106,6 @@ export function EventPage({
 
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto grid lg:grid-cols-4 gap-8">
-
           {/* Event details */}
           <article className="lg:col-span-2 space-y-6 order-2 lg:order-1 row-span-2">
             <h1 className="text-4xl md:text-5xl font-bold leading-tight bg-linear-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
@@ -224,10 +231,14 @@ export function EventPage({
                       userRSVP === "YES"
                         ? "bg-linear-to-r from-green-500 to-emerald-600 shadow-lg scale-105 border-4 border-emerald-600"
                         : "bg-linear-to-r from-green-400 to-emerald-500 hover:from-green-500 hover:to-emerald-600",
-                      userRSVP !== "YES" && userRSVP != null && "opacity-70 scale-95",
+                      userRSVP !== "YES" &&
+                        userRSVP != null &&
+                        "opacity-70 scale-95",
                     )}
                   >
-                    <span aria-hidden="true" className="text-3xl">👍</span>
+                    <span aria-hidden="true" className="text-3xl">
+                      👍
+                    </span>
                     Sí, voy
                   </Button>
 
@@ -239,10 +250,14 @@ export function EventPage({
                       userRSVP === "MAYBE"
                         ? "bg-linear-to-r from-yellow-500 to-orange-600 shadow-lg scale-105 border-4 border-amber-600"
                         : "bg-linear-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600",
-                      userRSVP !== "MAYBE" && userRSVP != null && "opacity-70 scale-95",
+                      userRSVP !== "MAYBE" &&
+                        userRSVP != null &&
+                        "opacity-70 scale-95",
                     )}
                   >
-                    <span aria-hidden="true" className="text-3xl">🤔</span>
+                    <span aria-hidden="true" className="text-3xl">
+                      🤔
+                    </span>
                     Tal vez
                   </Button>
 
@@ -254,10 +269,14 @@ export function EventPage({
                       userRSVP === "NO"
                         ? "bg-linear-to-r from-red-500 to-pink-600 shadow-lg scale-105 border-4 border-pink-600"
                         : "bg-linear-to-r from-red-400 to-pink-500 hover:from-red-500 hover:to-pink-600",
-                      userRSVP !== "NO" && userRSVP != null && "opacity-70 scale-95",
+                      userRSVP !== "NO" &&
+                        userRSVP != null &&
+                        "opacity-70 scale-95",
                     )}
                   >
-                    <span aria-hidden="true" className="text-3xl">😢</span>
+                    <span aria-hidden="true" className="text-3xl">
+                      😢
+                    </span>
                     No puedo
                   </Button>
                 </div>
