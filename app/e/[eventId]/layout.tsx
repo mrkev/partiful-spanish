@@ -1,5 +1,6 @@
 import { genLogin } from "@/app/actions/auth";
 import { ownsEvent } from "@/app/actions/event";
+import { Pill } from "@/components/Pill";
 import { Button } from "@/components/ui/button";
 import { User } from "@/lib/generated/prisma";
 import { Pencil, Share2 } from "lucide-react";
@@ -51,12 +52,9 @@ function OwnerPill({
   eventId: string;
   isOwner: boolean;
 }) {
-  const initial = profile.name?.charAt(0).toUpperCase() ?? "?";
-
   return (
     <div className="fixed top-4 right-4 z-50">
-      <div className="flex items-center gap-3 bg-white/50 backdrop-blur-sm shadow-lg rounded-full px-3 py-2 border border-gray-200">
-        {/* Action buttons */}
+      <Pill>
         <div className="flex items-center gap-2 border-r border-gray-100 pr-3">
           {isOwner && (
             <Link href={`/editar/${eventId}`}>
@@ -78,11 +76,10 @@ function OwnerPill({
             <Share2 className="w-5 h-5 text-gray-600" />
           </Button>
         </div>
-        {/* Profile link */}
-        <Link href="/inicio" className="flex items-center space-x-2">
+        <Link href="/inicio">
           <ProfileImage profile={profile} />
         </Link>
-      </div>
+      </Pill>
     </div>
   );
 }
@@ -90,17 +87,14 @@ function OwnerPill({
 function UnauthedPill() {
   return (
     <div className="fixed bottom-4 right-4 z-50">
-      <div className="flex items-center">
-        <Link href={"/"}>
-          <Button
-            variant={"outline"}
-            type="button"
-            className="text-sm font-medium text-gray-800 hover:text-gray-900 hover:bg-gray-100 rounded-full px-3 py-1 transition"
-          >
-            Crea una invitación como esta
-          </Button>
+      <Pill>
+        <Link
+          href="/"
+          className="text-sm font-medium text-gray-800 hover:text-gray-900 transition-colors"
+        >
+          Crea una invitación como esta
         </Link>
-      </div>
+      </Pill>
     </div>
   );
 }

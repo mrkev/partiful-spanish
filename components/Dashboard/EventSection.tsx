@@ -21,7 +21,6 @@ export function EventSection({
         <h2 className="text-sm uppercase tracking-widest font-semibold text-zinc-500">
           {title}
         </h2>
-        <span className="text-sm text-zinc-600">{events.length} eventos</span>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {events.map((event) => (

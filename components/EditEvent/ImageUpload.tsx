@@ -2,11 +2,9 @@
 
 import { Label } from "@/components/ui/label";
 import { DEFAULT_EVENT_IMAGES } from "@/lib/constants";
-import { ImageIcon, Upload } from "lucide-react";
-import Image from "next/image";
+import { ImageIcon } from "lucide-react";
 import { useState } from "react";
 import { ImagePickerModal } from "../ImagePickerModal";
-import { Button } from "../ui/button";
 
 interface ImageUploadProps {
   currentImage: string | null;
@@ -19,41 +17,42 @@ export function ImageUpload({
   selectedFile,
   onImageSelect,
 }: ImageUploadProps) {
-  // const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = e.target.files?.[0];
-  //   if (file) {
-  //     onImageSelect(file);
-  //   }
-  // };
-
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+  const displayImage = selectedFile ?? currentImage;
 
   return (
     <div className="space-y-2">
       <Label
         htmlFor="coverImage"
-        className="text-lg font-semibold text-gray-700 flex items-center"
+        className="text-xs uppercase tracking-widest font-semibold text-stone-400"
       >
-        <ImageIcon className="w-5 h-5 mr-2 text-pink-500" />
-        Imagen de Portada
+        Imagen de portada
       </Label>
-
-      <div className="space-y-4">
-        <Button onClick={() => setIsImageModalOpen(true)}>
-          Seleccionar Imagen
-        </Button>
-
-        <div className="space-y-2">
-          <div className="w-64 h-64 border rounded-lg overflow-hidden">
-            <img
-              src={selectedFile || "/placeholder.svg"}
-              alt="Selected"
-              className="w-full h-full object-cover"
-            />
+      <button
+        type="button"
+        onClick={() => setIsImageModalOpen(true)}
+        className="w-full aspect-video rounded-xl overflow-hidden border border-stone-200 hover:border-violet-400 transition-colors relative group bg-stone-50"
+      >
+        {displayImage ? (
+          <img
+            src={displayImage}
+            alt="Portada"
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-stone-400 group-hover:text-violet-500 transition-colors">
+            <ImageIcon className="w-8 h-8 mb-2" />
+            <span className="text-sm">Seleccionar imagen</span>
           </div>
-        </div>
-      </div>
-
+        )}
+        {displayImage && (
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+            <span className="text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+              Cambiar imagen
+            </span>
+          </div>
+        )}
+      </button>
       <ImagePickerModal
         existingImages={DEFAULT_EVENT_IMAGES}
         isOpen={isImageModalOpen}
