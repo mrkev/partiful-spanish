@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Prisma, RSVP, RSVPStatus, User } from "@/lib/generated/prisma";
 import { formatDateShort, formatTimeWithTimezone } from "@/lib/utils/date";
-import { MapPin, Users } from "lucide-react";
+import { Crown, MapPin, Users } from "lucide-react";
 import Image from "next/image";
 import { useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
@@ -108,58 +108,43 @@ export function EventPage({
         <div className="max-w-4xl mx-auto grid lg:grid-cols-4 gap-8">
           {/* Event details */}
           <article className="lg:col-span-2 space-y-6 order-2 lg:order-1 row-span-2">
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight bg-linear-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+            <h1 className="text-5xl md:text-6xl font-bold leading-tight bg-linear-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
               {event.title}
             </h1>
 
-            <p className="text-base text-gray-500">
-              Organizado por:{" "}
-              <span className="inline-flex items-center gap-1.5 align-middle">
-                <ProfileImage
-                  profile={event.creator}
-                  className="w-8 h-8 text-sm"
-                />
-                {event.creator.name ?? event.creator.email}
-              </span>
-            </p>
+            <div className="flex flex-col gap-1">
+              <p className="text-2xl md:text-3xl text-gray-800 capitalize">
+                {formatDateShort(event.start)}
+              </p>
 
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="flex flex-col gap-1">
-                <p className="text-sm text-gray-500 uppercase tracking-wide font-semibold">
-                  Fecha
-                </p>
-                <p className="text-lg font-bold text-gray-800 capitalize">
-                  {formatDateShort(event.start)}
-                </p>
-              </div>
-              <div className="flex flex-col gap-1">
-                <p className="text-sm text-gray-500 uppercase tracking-wide font-semibold">
-                  Hora
-                </p>
-                <p className="text-lg font-bold text-gray-800">
-                  {formatTimeWithTimezone(event.start)}
-                </p>
-              </div>
+              <p className="text-xl md:text-2xl text-gray-400">
+                {formatTimeWithTimezone(event.start)}
+              </p>
             </div>
 
             {event.location && (
-              <div className="flex items-center gap-4 pt-6 border-t border-gray-200">
-                <div
-                  aria-hidden="true"
-                  className="w-12 h-12 bg-linear-to-r from-cyan-500 to-cyan-600 rounded-full flex items-center justify-center shrink-0"
-                >
-                  <MapPin className="w-6 h-6 text-white" />
-                </div>
+              <div className="flex items-center gap-2">
+                <MapPin className="w-5 h-5 text-black" />
                 <div className="flex flex-col gap-1">
-                  <p className="text-sm text-gray-500 uppercase tracking-wide font-semibold">
-                    Ubicación
-                  </p>
-                  <p className="text-lg font-bold text-gray-800">
+                  <p className="text-lg font-semibold text-gray-800">
                     {event.location}
                   </p>
                 </div>
               </div>
             )}
+
+            <div className="flex flex-col gap-1">
+              <p className="flex items-center gap-2 text-sm text-gray-500 uppercase tracking-wide font-semibold">
+                <Crown className="w-5 h-5 text-black" /> Organizado por
+              </p>
+              <span className="inline-flex items-center gap-1.5 align-middle pl-7">
+                <ProfileImage
+                  profile={event.creator}
+                  className="w-7 h-7 text-sm"
+                />
+                {event.creator.name ?? event.creator.email}
+              </span>
+            </div>
 
             {event.description && (
               <p className="text-gray-700 leading-normal text-lg pt-6 border-t border-gray-200">
