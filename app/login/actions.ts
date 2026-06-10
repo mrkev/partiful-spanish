@@ -7,11 +7,11 @@ import prisma from "@/lib/prisma";
 import { emptythrows, nonempty } from "@/lib/utils/string";
 import { createClient } from "@/utils/supabase/server";
 
-export async function login(formData: FormData) {
+export type AuthState = { error: string } | null;
+
+export async function login(prevState: AuthState, formData: FormData): Promise<AuthState> {
   const supabase = await createClient();
 
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
   const data = {
     email: formData.get("email") as string,
     password: formData.get("password") as string,
@@ -20,30 +20,31 @@ export async function login(formData: FormData) {
   const { error } = await supabase.auth.signInWithPassword(data);
 
   if (error) {
-    console.error(error);
-    redirect("/error");
+    return { error: "Correo electrónico o contraseña incorrectos" };
   }
 
   revalidatePath("/", "layout");
   redirect("/");
 }
 
-export async function signup(formData: FormData) {
+export async function signup(prevState: AuthState, formData: FormData): Promise<AuthState> {
   const supabase = await createClient();
-  // todo:
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
+
   const email = emptythrows(formData.get("email") as string);
   const password = emptythrows(formData.get("password") as string);
-  const name = nonempty(formData.get("name") as string); // todo: ensure name is not empty string
+  const name = nonempty(formData.get("name") as string);
 
   const { error, data } = await supabase.auth.signUp({
     email,
     password,
   });
 
-  if (error || data.user == null) {
-    redirect("/error");
+  if (error) {
+    return { error: error.message };
+  }
+
+  if (data.user == null) {
+    return { error: "No se pudo crear la cuenta. Inténtalo de nuevo." };
   }
 
   await prisma.user.create({

@@ -2,9 +2,7 @@
 
 import { LoginForm } from "@/components/Auth/LoginForm";
 import { SignupForm } from "@/components/Auth/SignupForm";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { ArrowLeft, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -12,71 +10,42 @@ export default function LoginPage() {
   const [isLogin, setIsLogin] = useState(true);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-cyan-100">
-      {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md border-b border-purple-200">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link
-            href="/"
-            className="flex items-center space-x-2 text-purple-700 hover:text-purple-900 transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            <span className="font-semibold">Volver al Inicio</span>
-          </Link>
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-white" />
+    <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center px-4 py-12">
+      <div className="w-full max-w-sm">
+        {/* Brand */}
+        <div className="text-center mb-8">
+          <Link href="/" className="inline-flex items-center gap-2 mb-6 group">
+            <div className="w-9 h-9 bg-linear-to-br from-pink-500 to-purple-600 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
+              <Sparkles className="w-4 h-4 text-white" />
             </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-              GPI
-            </span>
-          </div>
+            <span className="text-xl font-bold text-gray-900">GPI</span>
+          </Link>
+
+          <h1 className="text-2xl font-semibold text-gray-900">
+            {isLogin ? "Bienvenido de vuelta" : "Crea tu cuenta"}
+          </h1>
+          <p className="text-sm text-gray-500 mt-1">
+            {isLogin
+              ? "Inicia sesión para gestionar tus eventos"
+              : "Empieza a organizar eventos increíbles"}
+          </p>
         </div>
-      </header>
 
-      {/* Main Content */}
-      <div className="container mx-auto px-4 py-12">
-        <div className="max-w-md mx-auto">
-          {/* Page Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-              {isLogin ? "¡Bienvenido de Vuelta!" : "¡Únete a la Fiesta!"}
-            </h1>
-            <p className="text-lg text-gray-600">
-              {isLogin
-                ? "Inicia sesión para gestionar tus eventos épicos"
-                : "Crea tu cuenta y comienza a organizar fiestas increíbles"}
-            </p>
-          </div>
-
-          {/* Auth Card */}
-          <Card className="shadow-2xl border-0 bg-white/90 backdrop-blur-sm">
-            <CardContent className="p-8">
-              {isLogin ? <LoginForm /> : <SignupForm />}
-
-              {/* Toggle between login/signup */}
-              <div className="text-center mt-6 pt-6 border-t border-gray-200">
-                <p className="text-gray-600 mb-4">
-                  {isLogin ? "¿No tienes cuenta?" : "¿Ya tienes cuenta?"}
-                </p>
-                <Button
-                  variant="ghost"
-                  onClick={() => setIsLogin(!isLogin)}
-                  className="text-purple-700 hover:text-purple-900 hover:bg-purple-50 font-semibold"
-                >
-                  {isLogin ? "Crear cuenta nueva" : "Iniciar sesión"}
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Fun Footer Message */}
-          <div className="text-center mt-8">
-            <p className="text-gray-600">
-              🎉 Únete a miles de organizadores de fiestas épicas
-            </p>
-          </div>
+        {/* Card */}
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-8">
+          {isLogin ? <LoginForm /> : <SignupForm />}
         </div>
+
+        {/* Toggle */}
+        <p className="text-center text-sm text-gray-500 mt-6">
+          {isLogin ? "¿No tienes cuenta? " : "¿Ya tienes cuenta? "}
+          <button
+            onClick={() => setIsLogin(!isLogin)}
+            className="text-purple-600 hover:text-purple-800 font-medium transition-colors"
+          >
+            {isLogin ? "Regístrate" : "Inicia sesión"}
+          </button>
+        </p>
       </div>
     </div>
   );
